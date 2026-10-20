@@ -3128,7 +3128,29 @@
       </div>
     </footer>
   </div>
+  <!-- FLOATING REVIEW BUTTON -->
+<div class="floating-review-cta" id="floatingReviewCta">
 
+  <button
+    type="button"
+    class="floating-review-button"
+    id="floatingReviewButton"
+    aria-label="เลื่อนไปดูรีวิวจากผู้ใช้บริการ"
+  >
+    <svg class="icon" aria-hidden="true">
+      <use href="#i-message"></use>
+    </svg>
+    <span>กดเพื่อดูรีวิว</span>
+  </button>
+
+  <button
+    type="button"
+    class="floating-review-close"
+    id="floatingReviewClose"
+    aria-label="ซ่อนปุ่มดูรีวิว"
+  >×</button>
+
+</div>
   <!-- PRIVACY NOTICE MODAL -->
   <div class="modal" id="privacyModal" role="dialog" aria-modal="true" aria-labelledby="privacyModalTitle" hidden>
     <div class="modal-panel privacy-modal-panel">
@@ -5277,7 +5299,26 @@ if (reviewCountBadge) {
         block: "start"
       });
     });
+    /* Floating review button */
+$("#floatingReviewButton").addEventListener("click", () => {
+  const reviewsSection = $("#reviewsSection");
+  const floatingButton = $("#floatingReviewCta");
 
+  if (!reviewsSection) return;
+
+  // ซ่อนปุ่มเพื่อไม่ให้บังเนื้อหารีวิว
+  floatingButton.hidden = true;
+
+  // เลื่อนไปยังส่วนรีวิวอย่างนุ่มนวล
+  reviewsSection.scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+  });
+});
+
+$("#floatingReviewClose").addEventListener("click", () => {
+  $("#floatingReviewCta").hidden = true;
+});
     function initialise() {
       initialiseRatings();
       updateSubmitButton();
