@@ -3254,7 +3254,9 @@
         </button>
       </div>
       <div class="lightbox-image-area">
-        <img src="" alt="รูปภาพประกอบรีวิว" id="lightboxImage" class="lightbox-image">
+        <img alt="รูปภาพประกอบรีวิว" 
+             id="lightboxImage" 
+        class="lightbox-image">
       </div>
     </div>
   </div>
@@ -4954,11 +4956,20 @@
     });
 
     $("#lightboxImage").addEventListener("error", () => {
-      showToast(
-        "ไม่สามารถแสดงรูปภาพได้",
-        "รูปภาพอาจถูกย้าย ลบ หรือไม่สามารถเข้าถึงได้"
-      );
-    });
+  const image = $("#lightboxImage");
+  const modal = $("#lightboxModal");
+
+  // ไม่แจ้งเตือนหากยังไม่ได้กำหนดรูปภาพ
+  if (!image.getAttribute("src")) return;
+
+  // ไม่แจ้งเตือนหากหน้าต่างดูรูปภาพปิดอยู่
+  if (modal.hidden) return;
+
+  showToast(
+    "ไม่สามารถแสดงรูปภาพได้",
+    "รูปภาพอาจถูกย้าย ลบ หรือไม่สามารถเข้าถึงได้"
+  );
+});
 
     $("#lightboxImage").addEventListener("load", () => {
       $("#lightboxImage").alt = "รูปภาพประกอบรีวิว";
@@ -5038,7 +5049,6 @@
 
         $("#brandTitle").textContent = title;
         $("#heroTitle").textContent = title;
-        $("#heroDescription").textContent = subtitle;
         $("#poweredByName").textContent = poweredByName;
 
         // ตั้ง target URL ให้ตรงกับค่าที่ได้จากฐานข้อมูล
