@@ -2165,6 +2165,69 @@
         transition-duration: .01ms !important;
       }
     }
+    
+/* ===== Larger review stars ===== */
+
+/* ดาวที่ใช้เลือกคะแนน */
+.star-picker {
+  gap: 6px;
+}
+
+.star-button {
+  width: 44px;
+  height: 46px;
+}
+
+.star-button .icon {
+  width: 32px;
+  height: 32px;
+}
+
+/* ดาวสรุปคะแนนของรีวิว */
+.review-star-strip .icon {
+  width: 21px;
+  height: 21px;
+}
+
+/* ดาวคะแนนแยกแต่ละหมวด */
+.mini-rating-stars .icon {
+  width: 16px;
+  height: 16px;
+}
+
+/* มือถือ */
+@media (max-width: 600px) {
+  .star-picker {
+    gap: 3px;
+  }
+
+  .star-button {
+    width: 35px;
+    height: 38px;
+  }
+
+  .star-button .icon {
+    width: 27px;
+    height: 27px;
+  }
+}
+
+/* มือถือจอเล็ก */
+@media (max-width: 380px) {
+  .star-picker {
+    gap: 1px;
+  }
+
+  .star-button {
+    width: 30px;
+    height: 34px;
+  }
+
+  .star-button .icon {
+    width: 24px;
+    height: 24px;
+  }
+}
   </style>
 </head>
 
@@ -2511,7 +2574,7 @@
 
                 <div class="preview-grid" id="previewGrid" aria-live="polite"></div>
                 <span class="field-help" id="imageHelp">
-                  รูปภาพจะอัปโหลดไปยัง ImgBB เมื่อกดส่งรีวิว
+                  รูปภาพจะปรากฎบนรีวิว
                 </span>
               </div>
             </div>
