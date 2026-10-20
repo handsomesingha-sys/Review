@@ -1,0 +1,4961 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f8fafc">
+  <meta name="description" content="รีวิวการให้บริการ">
+  <meta name="robots" content="index,follow">
+  <title>รีวิวการให้บริการ</title>
+
+  <!-- Modern Thai fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --primary-light: #eff6ff;
+      --text: #172033;
+      --text-soft: #526077;
+      --muted: #8994a7;
+      --border: #e5eaf1;
+      --surface: #ffffff;
+      --background: #f7f9fc;
+      --success: #16a34a;
+      --danger: #dc2626;
+      --gold: #f5ad17;
+      --shadow-sm: 0 2px 8px rgba(15, 23, 42, .035);
+      --shadow-md: 0 12px 32px rgba(15, 23, 42, .07);
+      --shadow-lg: 0 24px 80px rgba(15, 23, 42, .20);
+      --radius: 18px;
+      --radius-sm: 12px;
+      --content-width: 900px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 24px;
+    }
+
+    body {
+      margin: 0;
+      color: var(--text);
+      background: var(--background);
+      font-family: "IBM Plex Sans Thai", "Inter", sans-serif;
+      font-size: 15px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      overflow-wrap: anywhere;
+    }
+
+    body.modal-open {
+      overflow: hidden;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    button:disabled {
+      cursor: not-allowed;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    img {
+      max-width: 100%;
+    }
+
+    button:focus-visible,
+    input:focus-visible,
+    select:focus-visible,
+    textarea:focus-visible,
+    a:focus-visible {
+      outline: 3px solid rgba(37, 99, 235, .32);
+      outline-offset: 3px;
+    }
+
+    .icon-definitions {
+      position: absolute;
+      width: 0;
+      height: 0;
+      overflow: hidden;
+    }
+
+    .icon {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      flex: 0 0 auto;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      vertical-align: middle;
+    }
+
+    .icon-sm {
+      width: 16px;
+      height: 16px;
+    }
+
+    .icon-lg {
+      width: 24px;
+      height: 24px;
+    }
+
+    .icon-xl {
+      width: 30px;
+      height: 30px;
+    }
+
+    .container {
+      width: min(var(--content-width), calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Header */
+
+    .topbar {
+      position: relative;
+      z-index: 2;
+      background: rgba(255, 255, 255, .92);
+      border-bottom: 1px solid rgba(229, 234, 241, .85);
+      backdrop-filter: blur(16px);
+    }
+
+    .topbar-inner {
+      min-height: 66px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      min-width: 0;
+      text-decoration: none;
+      color: var(--text);
+    }
+
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 40px;
+      height: 40px;
+      flex: 0 0 auto;
+      background: linear-gradient(145deg, #3b82f6, #1d4ed8);
+      color: #fff;
+      border-radius: 13px;
+      box-shadow: 0 6px 14px rgba(37, 99, 235, .20);
+    }
+
+    .brand-title {
+      display: block;
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 1.4;
+    }
+
+    .brand-caption {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 400;
+      line-height: 1.5;
+    }
+
+    .header-note {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      color: var(--text-soft);
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #22c55e;
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, .10);
+    }
+
+    /* Intro */
+
+    .hero {
+      position: relative;
+      padding: 44px 0 26px;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .hero::before,
+    .hero::after {
+      position: absolute;
+      content: "";
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      filter: blur(1px);
+      pointer-events: none;
+    }
+
+    .hero::before {
+      left: calc(50% - 365px);
+      top: 20px;
+      background: radial-gradient(circle, rgba(96, 165, 250, .10), transparent 70%);
+    }
+
+    .hero::after {
+      right: calc(50% - 365px);
+      bottom: 0;
+      background: radial-gradient(circle, rgba(167, 139, 250, .09), transparent 70%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 5px 11px;
+      border: 1px solid #dbeafe;
+      background: rgba(239, 246, 255, .8);
+      border-radius: 999px;
+      color: #2554ad;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .1px;
+    }
+
+    .hero h1 {
+      margin: 14px 0 5px;
+      color: #142039;
+      font-size: clamp(27px, 5vw, 38px);
+      font-weight: 700;
+      line-height: 1.38;
+      letter-spacing: -.7px;
+    }
+
+    .hero-description {
+      max-width: 500px;
+      margin: 0 auto;
+      color: var(--text-soft);
+      font-size: 14px;
+    }
+
+    .powered-by {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .powered-by a {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      color: #1877f2;
+      font-weight: 600;
+      transition: opacity .2s ease;
+    }
+
+    .powered-by a:hover {
+      opacity: .75;
+    }
+
+    .facebook-icon {
+      width: 17px;
+      height: 17px;
+      fill: currentColor;
+      stroke: none;
+    }
+
+    /* Summary */
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .summary-card {
+      padding: 17px;
+      min-width: 0;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      border-radius: 15px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .summary-label {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      color: var(--text-soft);
+      font-size: 12px;
+    }
+
+    .summary-value {
+      margin-top: 5px;
+      font-family: "Inter", sans-serif;
+      font-size: 27px;
+      line-height: 1.4;
+      font-weight: 800;
+      letter-spacing: -.8px;
+      color: #172033;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .summary-subtext {
+      color: var(--muted);
+      font-size: 11px;
+      margin-top: 2px;
+    }
+
+    .gold {
+      color: var(--gold);
+    }
+
+    /* Sections */
+
+    .section {
+      margin-bottom: 26px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+      scroll-margin-top: 18px;
+    }
+
+    .section-header {
+      padding: 22px 24px 18px;
+      border-bottom: 1px solid #edf0f5;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .section-heading {
+      display: flex;
+      gap: 11px;
+      min-width: 0;
+      align-items: flex-start;
+    }
+
+    .section-icon {
+      display: grid;
+      place-items: center;
+      width: 41px;
+      height: 41px;
+      border-radius: 12px;
+      flex: 0 0 auto;
+      color: #2563eb;
+      background: #eff6ff;
+    }
+
+    .section-title {
+      margin: 0;
+      color: #172033;
+      font-size: 18px;
+      line-height: 1.45;
+      font-weight: 700;
+    }
+
+    .section-description {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .section-body {
+      padding: 24px;
+    }
+
+    .required-mark {
+      color: #dc2626;
+      font-weight: 600;
+    }
+
+    .optional-text {
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 400;
+    }
+
+    /* Form controls */
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 22px 18px;
+    }
+
+    .field {
+      min-width: 0;
+    }
+
+    .field-full {
+      grid-column: 1 / -1;
+    }
+
+    .field-label {
+      display: block;
+      margin-bottom: 8px;
+      color: #253046;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .input-wrap {
+      position: relative;
+    }
+
+    .field-icon {
+      position: absolute;
+      left: 13px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #8b97a9;
+      width: 18px;
+      height: 18px;
+      pointer-events: none;
+    }
+
+    .form-control {
+      width: 100%;
+      min-height: 47px;
+      padding: 11px 13px;
+      border: 1px solid #dce3ed;
+      border-radius: 11px;
+      background: #fff;
+      color: var(--text);
+      font-size: 13px;
+      outline: none;
+      transition: border-color .2s ease, box-shadow .2s ease, background .2s ease;
+    }
+
+    .form-control.has-icon {
+      padding-left: 42px;
+    }
+
+    .form-control::placeholder {
+      color: #a2abba;
+    }
+
+    .form-control:hover:not(:disabled) {
+      border-color: #bdc9d9;
+    }
+
+    .form-control:focus {
+      border-color: #6d9df7;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, .09);
+    }
+
+    .form-control:disabled,
+    .form-control[readonly] {
+      color: #9aa3b1;
+      background: #f0f2f5;
+      border-color: #e5e7eb;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    select.form-control {
+      appearance: none;
+      padding-right: 42px;
+      cursor: pointer;
+    }
+
+    .select-arrow {
+      position: absolute;
+      right: 13px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #7b8798;
+      pointer-events: none;
+    }
+
+    textarea.form-control {
+      min-height: 120px;
+      resize: vertical;
+      line-height: 1.8;
+    }
+
+    .field-help {
+      display: block;
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .inline-choice {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+
+    .checkbox-line {
+      display: inline-flex;
+      gap: 9px;
+      align-items: flex-start;
+      color: var(--text-soft);
+      font-size: 12px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .checkbox-line input[type="checkbox"] {
+      width: 17px;
+      height: 17px;
+      min-width: 17px;
+      margin: 2px 0 0;
+      accent-color: var(--primary);
+      cursor: pointer;
+    }
+
+    .checkbox-line input[type="checkbox"]:disabled {
+      cursor: not-allowed;
+    }
+
+    /* Upload */
+
+    .upload-zone {
+      position: relative;
+      min-height: 130px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 22px;
+      border: 1.5px dashed #cbd5e1;
+      border-radius: 13px;
+      background: #fbfcfe;
+      transition: border-color .2s ease, background .2s ease;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .upload-zone:hover,
+    .upload-zone.drag-over {
+      border-color: #60a5fa;
+      background: #f3f8ff;
+    }
+
+    .upload-zone-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .upload-icon-box {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 13px;
+      background: #eff6ff;
+      color: #2563eb;
+      margin-bottom: 3px;
+    }
+
+    .upload-title {
+      font-weight: 600;
+      font-size: 13px;
+      color: #263248;
+    }
+
+    .upload-subtitle {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    #imageInput {
+      display: none;
+    }
+
+    .preview-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(95px, 1fr));
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .preview-item {
+      position: relative;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      aspect-ratio: 1;
+      background: #f3f5f8;
+    }
+
+    .preview-item img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .preview-remove {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      width: 27px;
+      height: 27px;
+      display: grid;
+      place-items: center;
+      padding: 0;
+      border: 1px solid rgba(255,255,255,.6);
+      border-radius: 50%;
+      background: rgba(15,23,42,.78);
+      color: #fff;
+    }
+
+    .preview-remove .icon {
+      width: 14px;
+      height: 14px;
+    }
+
+    .preview-name {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 17px 5px 4px;
+      color: #fff;
+      background: linear-gradient(transparent, rgba(15,23,42,.75));
+      font-size: 9px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Ratings */
+
+    .rating-list {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .rating-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding: 16px 0;
+      border-bottom: 1px solid #edf0f5;
+    }
+
+    .rating-item:first-child {
+      padding-top: 0;
+    }
+
+    .rating-item:last-child {
+      padding-bottom: 0;
+      border-bottom: 0;
+    }
+
+    .rating-info {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      min-width: 0;
+    }
+
+    .rating-icon-box {
+      width: 39px;
+      height: 39px;
+      border: 1px solid #edf0f5;
+      background: #fafbfc;
+      border-radius: 11px;
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      color: #64748b;
+    }
+
+    .rating-name {
+      margin: 0;
+      font-size: 13px;
+      font-weight: 600;
+      color: #253046;
+    }
+
+    .rating-description {
+      display: block;
+      margin-top: 2px;
+      font-size: 10px;
+      color: var(--muted);
+    }
+
+    .star-picker {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      flex: 0 0 auto;
+    }
+
+    .star-button {
+      width: 35px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      padding: 0;
+      border: 0;
+      border-radius: 8px;
+      background: transparent;
+      color: #d4dae3;
+      transition: color .14s ease, transform .14s ease, background .14s ease;
+    }
+
+    .star-button .icon {
+      width: 25px;
+      height: 25px;
+      fill: transparent;
+      stroke-width: 1.8;
+    }
+
+    .star-button.selected {
+      color: var(--gold);
+    }
+
+    .star-button.selected .icon {
+      fill: #ffc94d;
+      stroke: #e8a00b;
+    }
+
+    .star-button:hover {
+      color: #e9a914;
+      background: #fff8e7;
+      transform: translateY(-1px);
+    }
+
+    .star-button:active {
+      transform: scale(.92);
+    }
+
+    .rating-value {
+      width: 25px;
+      text-align: right;
+      font-family: "Inter", sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--muted);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .rating-value.is-rated {
+      color: #bd7a00;
+    }
+
+    .rating-tip {
+      margin: 17px 0 0;
+      padding: 11px 13px;
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+      border: 1px solid #f4e5ba;
+      border-radius: 10px;
+      background: #fffcf2;
+      color: #85621d;
+      font-size: 11px;
+    }
+
+    /* Consent */
+
+    .consent-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .consent-row {
+      padding: 17px 0;
+      display: flex;
+      align-items: flex-start;
+      gap: 11px;
+      border-bottom: 1px solid #edf0f5;
+    }
+
+    .consent-row:first-child {
+      padding-top: 0;
+    }
+
+    .consent-row:last-child {
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .consent-row input {
+      margin-top: 5px;
+      width: 18px;
+      height: 18px;
+      flex: 0 0 auto;
+      accent-color: var(--primary);
+      cursor: pointer;
+    }
+
+    .consent-row label {
+      cursor: pointer;
+      flex: 1;
+      font-size: 12px;
+      color: var(--text-soft);
+      line-height: 1.75;
+    }
+
+    .consent-title {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 13px;
+      color: #253046;
+      font-weight: 600;
+    }
+
+    .text-link {
+      display: inline;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: #2563eb;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      font-size: inherit;
+      cursor: pointer;
+    }
+
+    .legal-note {
+      padding: 13px 15px;
+      margin-top: 18px;
+      border-radius: 10px;
+      background: #f7f9fc;
+      color: #788398;
+      font-size: 11px;
+    }
+
+    /* Submit */
+
+    .submit-area {
+      margin-top: 25px;
+      padding-top: 22px;
+      border-top: 1px solid #edf0f5;
+    }
+
+    .submit-caption {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 11px;
+      margin-bottom: 15px;
+    }
+
+    .submit-button {
+      width: 100%;
+      min-height: 51px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      border: 0;
+      border-radius: 12px;
+      color: #fff;
+      background: #1e293b;
+      font-size: 14px;
+      font-weight: 600;
+      box-shadow: 0 5px 12px rgba(15,23,42,.10);
+      transition: background .2s ease, transform .15s ease, box-shadow .2s ease;
+    }
+
+    .submit-button:hover:not(:disabled) {
+      background: #0f172a;
+      box-shadow: 0 8px 20px rgba(15,23,42,.15);
+      transform: translateY(-1px);
+    }
+
+    .submit-button:active:not(:disabled) {
+      transform: scale(.99);
+    }
+
+    .submit-button:disabled {
+      color: #9ca3af;
+      background: #e7eaf0;
+      box-shadow: none;
+    }
+
+    /* Review filters */
+
+    .reviews-section {
+      scroll-margin-top: 18px;
+    }
+
+    .review-count-badge {
+      flex: 0 0 auto;
+      padding: 4px 9px;
+      border-radius: 999px;
+      background: #eff6ff;
+      color: #2454a6;
+      font-family: "Inter", sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .filter-panel {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+      gap: 13px;
+      padding: 20px 24px;
+      background: #fbfcfe;
+      border-bottom: 1px solid #edf0f5;
+    }
+
+    .filter-field {
+      min-width: 0;
+    }
+
+    .filter-label {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #647084;
+    }
+
+    .filter-control {
+      width: 100%;
+      height: 42px;
+      min-width: 0;
+      border: 1px solid #dce3ed;
+      border-radius: 10px;
+      padding: 8px 10px;
+      background: #fff;
+      color: #2c3850;
+      font-size: 12px;
+      outline: none;
+    }
+
+    .filter-control:focus {
+      border-color: #6d9df7;
+      box-shadow: 0 0 0 3px rgba(37,99,235,.08);
+    }
+
+    .search-wrap {
+      position: relative;
+    }
+
+    .search-wrap .icon {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #9aa4b4;
+      pointer-events: none;
+    }
+
+    .search-wrap .filter-control {
+      padding-left: 38px;
+    }
+
+    .date-filter-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .filter-actions {
+      grid-column: 1 / -1;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 2px;
+    }
+
+    .button {
+      display: inline-flex;
+      min-height: 39px;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      padding: 8px 13px;
+      border: 1px solid transparent;
+      border-radius: 9px;
+      font-size: 12px;
+      font-weight: 600;
+      transition: background .18s ease, border-color .18s ease;
+    }
+
+    .button-primary {
+      background: #1e293b;
+      color: white;
+    }
+
+    .button-primary:hover:not(:disabled) {
+      background: #0f172a;
+    }
+
+    .button-secondary {
+      border-color: #dce3ed;
+      background: white;
+      color: #475569;
+    }
+
+    .button-secondary:hover:not(:disabled) {
+      border-color: #bac7d8;
+      background: #f9fafb;
+    }
+
+    .filter-status {
+      padding: 12px 24px 0;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    /* Review cards */
+
+    .review-list {
+      padding: 0 24px;
+    }
+
+    .review-card {
+      padding: 22px 0;
+      border-bottom: 1px solid #edf0f5;
+      scroll-margin-top: 25px;
+    }
+
+    .review-card:last-child {
+      border-bottom: 0;
+    }
+
+    .review-card.is-highlighted {
+      animation: reviewHighlight 2s ease;
+    }
+
+    @keyframes reviewHighlight {
+      0%, 100% {
+        background: transparent;
+      }
+      25%, 65% {
+        background: #eff6ff;
+      }
+    }
+
+    .review-top {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .review-avatar {
+      width: 43px;
+      height: 43px;
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      border-radius: 14px;
+      background: linear-gradient(145deg, #e5edff, #f0f5ff);
+      color: #3864b6;
+    }
+
+    .review-main {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .review-name-row {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+
+    .review-name {
+      font-weight: 700;
+      font-size: 13px;
+      color: #27344a;
+    }
+
+    .verified-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 6px;
+      border-radius: 5px;
+      color: #18794e;
+      background: #eaf8f0;
+      font-size: 9px;
+      font-weight: 600;
+    }
+
+    .review-date {
+      margin-top: 2px;
+      color: #9aa4b4;
+      font-size: 10px;
+    }
+
+    .review-service {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      margin-top: 6px;
+      padding: 3px 8px;
+      border-radius: 6px;
+      background: #f2f5fa;
+      color: #5b677b;
+      font-size: 10px;
+    }
+
+    .review-price {
+      font-size: 10px;
+      color: #6b7789;
+      margin-top: 5px;
+    }
+
+    .review-price strong {
+      color: #334155;
+    }
+
+    .review-rating-summary {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      margin-top: 12px;
+      flex-wrap: wrap;
+    }
+
+    .review-star-strip {
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+      color: var(--gold);
+    }
+
+    .review-star-strip .icon {
+      width: 15px;
+      height: 15px;
+      fill: #ffc94d;
+      stroke: #e8a00b;
+      stroke-width: 1.2;
+    }
+
+    .review-score {
+      font-family: "Inter", sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      color: #8a5c0b;
+    }
+
+    .review-category-ratings {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 7px 14px;
+      padding: 12px;
+      margin-top: 13px;
+      border: 1px solid #edf0f5;
+      border-radius: 11px;
+      background: #fbfcfe;
+    }
+
+    .mini-rating {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      font-size: 10px;
+      color: #647084;
+      align-items: center;
+    }
+
+    .mini-rating-stars {
+      display: inline-flex;
+      gap: 1px;
+      flex: 0 0 auto;
+    }
+
+    .mini-rating-stars .icon {
+      width: 11px;
+      height: 11px;
+      color: #d4dbe5;
+    }
+
+    .mini-rating-stars .icon.filled {
+      color: var(--gold);
+      fill: #ffc94d;
+      stroke: #e8a00b;
+    }
+
+    .review-comment {
+      margin: 13px 0 0;
+      color: #455269;
+      font-size: 12px;
+      line-height: 1.9;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+
+    .review-images {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(105px, 1fr));
+      gap: 9px;
+      max-width: 470px;
+      margin-top: 13px;
+    }
+
+    .review-image-button {
+      position: relative;
+      display: block;
+      aspect-ratio: 1;
+      padding: 0;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      background: #f5f7fa;
+    }
+
+    .review-image-button img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .25s ease;
+    }
+
+    .review-image-button:hover img {
+      transform: scale(1.04);
+    }
+
+    .review-empty-comment {
+      margin-top: 12px;
+      color: #a0a8b6;
+      font-size: 11px;
+      font-style: italic;
+    }
+
+    /* Loading and empty states */
+
+    .state-panel {
+      padding: 48px 18px;
+      text-align: center;
+    }
+
+    .state-icon {
+      width: 54px;
+      height: 54px;
+      display: grid;
+      place-items: center;
+      margin: 0 auto 13px;
+      border-radius: 18px;
+      background: #f1f5f9;
+      color: #7b8798;
+    }
+
+    .state-title {
+      margin: 0;
+      font-size: 14px;
+      font-weight: 700;
+      color: #334155;
+    }
+
+    .state-description {
+      max-width: 340px;
+      margin: 5px auto 0;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .small-spinner {
+      width: 23px;
+      height: 23px;
+      border: 2.5px solid #dbeafe;
+      border-top-color: #2563eb;
+      border-radius: 50%;
+      animation: spin .7s linear infinite;
+      margin: 0 auto 12px;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .pagination {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 20px 24px 23px;
+      border-top: 1px solid #edf0f5;
+    }
+
+    .page-indicator {
+      color: #647084;
+      font-size: 11px;
+      min-width: 75px;
+      text-align: center;
+    }
+
+    .pagination .button {
+      min-width: 94px;
+    }
+
+    /* Footer */
+
+    .footer {
+      margin-top: auto;
+      padding: 12px 0 28px;
+      text-align: center;
+      color: #97a0af;
+      font-size: 11px;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 8px;
+    }
+
+    .footer-links a {
+      color: #647084;
+      text-decoration: none;
+    }
+
+    .footer-links a:hover {
+      color: var(--primary);
+      text-decoration: underline;
+    }
+
+    /* Central modals */
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      background: rgba(15, 23, 42, .55);
+      backdrop-filter: blur(6px);
+      opacity: 1;
+      visibility: visible;
+      transition: opacity .2s ease, visibility .2s ease;
+    }
+
+    .modal[hidden] {
+      display: none !important;
+    }
+
+    .modal-panel {
+      position: relative;
+      width: min(100%, 470px);
+      max-height: min(88vh, 780px);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      background: #fff;
+      border: 1px solid rgba(255,255,255,.7);
+      border-radius: 20px;
+      box-shadow: var(--shadow-lg);
+      animation: modalAppear .24s cubic-bezier(.2,.8,.2,1) both;
+    }
+
+    @keyframes modalAppear {
+      from {
+        opacity: 0;
+        transform: translateY(12px) scale(.98);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .modal-head {
+      position: relative;
+      flex: 0 0 auto;
+      padding: 20px 22px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 15px;
+      border-bottom: 1px solid #edf0f5;
+      background: #fff;
+    }
+
+    .modal-heading {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .modal-heading-icon {
+      width: 39px;
+      height: 39px;
+      border-radius: 12px;
+      background: #eff6ff;
+      color: #2563eb;
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+    }
+
+    .modal-title {
+      margin: 0;
+      font-size: 16px;
+      line-height: 1.5;
+      font-weight: 700;
+      color: #1e293b;
+    }
+
+    .modal-subtitle {
+      margin: 3px 0 0;
+      color: #8490a2;
+      font-size: 11px;
+    }
+
+    .icon-button {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      padding: 0;
+      border: 0;
+      border-radius: 9px;
+      background: #f5f7fa;
+      color: #667085;
+    }
+
+    .icon-button:hover {
+      background: #e9edf3;
+    }
+
+    .modal-body {
+      padding: 22px;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+    }
+
+    .modal-footer {
+      position: relative;
+      z-index: 2;
+      flex: 0 0 auto;
+      display: flex;
+      gap: 10px;
+      padding: 15px 22px 20px;
+      border-top: 1px solid #edf0f5;
+      background: #fff;
+    }
+
+    .modal-footer .button {
+      flex: 1;
+      min-height: 43px;
+    }
+
+    /* Privacy notice modal */
+
+    .privacy-modal-panel {
+      width: min(100%, 640px);
+      max-height: 88vh;
+    }
+
+    .privacy-modal-body {
+      padding: 22px;
+      overflow-y: auto;
+      line-height: 1.95;
+      font-size: 12px;
+      color: #536075;
+      overscroll-behavior: contain;
+    }
+
+    .privacy-modal-body h3 {
+      margin: 0 0 9px;
+      color: #263248;
+      font-size: 13px;
+    }
+
+    .privacy-modal-body p {
+      margin: 0 0 15px;
+    }
+
+    .privacy-section {
+      padding: 13px 0;
+      border-bottom: 1px solid #edf0f5;
+    }
+
+    .privacy-section:first-child {
+      padding-top: 0;
+    }
+
+    .privacy-section:last-child {
+      border-bottom: 0;
+    }
+
+    .privacy-scroll-hint {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      padding: 8px;
+      border-top: 1px solid #edf0f5;
+      color: #b45309;
+      background: #fffbeb;
+      font-size: 10px;
+      text-align: center;
+    }
+
+    .privacy-scroll-hint.is-complete {
+      color: #15803d;
+      background: #f0fdf4;
+    }
+
+    .privacy-consent-button:disabled {
+      color: #9ca3af;
+      background: #e5e7eb;
+      border-color: #e5e7eb;
+      box-shadow: none;
+    }
+
+    .privacy-consent-button:not(:disabled) {
+      background: #1e293b;
+      color: #fff;
+    }
+
+    /* Loading dots matching the reference */
+
+    .loading-modal-panel,
+    .success-modal-panel {
+      width: min(100%, 370px);
+      text-align: center;
+      padding: 31px 25px 25px;
+      align-items: center;
+    }
+
+    .loading-dots {
+      position: relative;
+      width: 98px;
+      height: 90px;
+      margin: 4px auto 20px;
+    }
+
+    .loading-dot {
+      position: absolute;
+      border-radius: 50%;
+      animation: dotPulse 1.25s ease-in-out infinite;
+    }
+
+    .loading-dot:nth-child(1) {
+      width: 35px;
+      height: 35px;
+      left: 9px;
+      top: 4px;
+      background: #03a9f4;
+      animation-delay: 0s;
+    }
+
+    .loading-dot:nth-child(2) {
+      width: 25px;
+      height: 25px;
+      right: 9px;
+      top: 9px;
+      background: #ff5b62;
+      animation-delay: .16s;
+    }
+
+    .loading-dot:nth-child(3) {
+      width: 22px;
+      height: 22px;
+      left: 20px;
+      bottom: 8px;
+      background: #ca63ed;
+      animation-delay: .32s;
+    }
+
+    .loading-dot:nth-child(4) {
+      width: 40px;
+      height: 40px;
+      right: 0;
+      bottom: 0;
+      background: #91cf20;
+      animation-delay: .48s;
+    }
+
+    @keyframes dotPulse {
+      0%, 100% {
+        transform: scale(.86);
+        opacity: .72;
+      }
+      50% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    .loading-title,
+    .success-title {
+      margin: 0;
+      color: #1e293b;
+      font-size: 17px;
+      font-weight: 700;
+    }
+
+    .loading-description,
+    .success-description {
+      margin: 6px 0 0;
+      max-width: 290px;
+      color: #7b8798;
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+    .progress-track {
+      width: 100%;
+      max-width: 265px;
+      height: 4px;
+      margin-top: 20px;
+      background: #edf1f6;
+      border-radius: 99px;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      width: 35%;
+      height: 100%;
+      border-radius: 99px;
+      background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+      animation: progressMove 1.6s ease-in-out infinite;
+    }
+
+    @keyframes progressMove {
+      0% {
+        transform: translateX(-120%);
+      }
+      100% {
+        transform: translateX(400%);
+      }
+    }
+
+    /* Animated success check */
+
+    .success-icon-wrap {
+      position: relative;
+      width: 120px;
+      height: 120px;
+      margin: 2px auto 19px;
+    }
+
+    .success-circle {
+      position: absolute;
+      inset: 0;
+      width: 120px;
+      height: 120px;
+      overflow: visible;
+    }
+
+    .success-circle-bg {
+      fill: #68e77a;
+      stroke: #49d962;
+      stroke-width: 2;
+      stroke-dasharray: 365;
+      stroke-dashoffset: 365;
+      animation: circleDraw .65s cubic-bezier(.25,.8,.25,1) forwards;
+    }
+
+    .success-check {
+      fill: none;
+      stroke: #fff;
+      stroke-width: 8;
+      stroke-linecap: square;
+      stroke-linejoin: miter;
+      stroke-dasharray: 110;
+      stroke-dashoffset: 110;
+      animation: checkDraw .45s .52s ease-out forwards;
+    }
+
+    @keyframes circleDraw {
+      from {
+        stroke-dashoffset: 365;
+        transform: scale(.75);
+        transform-origin: center;
+        opacity: .25;
+      }
+      to {
+        stroke-dashoffset: 0;
+        transform: scale(1);
+        transform-origin: center;
+        opacity: 1;
+      }
+    }
+
+    @keyframes checkDraw {
+      to {
+        stroke-dashoffset: 0;
+      }
+    }
+
+    .success-modal-panel .button {
+      width: 100%;
+      margin-top: 23px;
+      min-height: 45px;
+    }
+
+    /* Notice modal */
+
+    .notice-modal-panel {
+      width: min(100%, 410px);
+      text-align: center;
+      padding: 26px 25px 24px;
+      align-items: center;
+    }
+
+    .notice-icon {
+      width: 53px;
+      height: 53px;
+      display: grid;
+      place-items: center;
+      border-radius: 17px;
+      margin: 0 auto 14px;
+      background: #eff6ff;
+      color: #2563eb;
+    }
+
+    .notice-icon.is-error {
+      color: #dc2626;
+      background: #fef2f2;
+    }
+
+    .notice-modal-panel .button {
+      width: 100%;
+      margin-top: 22px;
+      min-height: 43px;
+    }
+
+    /* Image lightbox */
+
+    .lightbox-panel {
+      width: min(100%, 850px);
+      max-height: 92vh;
+      background: #111827;
+      border: 0;
+      border-radius: 16px;
+    }
+
+    .lightbox-head {
+      display: flex;
+      justify-content: flex-end;
+      padding: 10px;
+      border: 0;
+      background: #111827;
+    }
+
+    .lightbox-head .icon-button {
+      background: rgba(255,255,255,.10);
+      color: #fff;
+    }
+
+    .lightbox-image-area {
+      padding: 0 15px 15px;
+      display: grid;
+      place-items: center;
+      min-height: 160px;
+      overflow: auto;
+    }
+
+    .lightbox-image {
+      display: block;
+      max-width: 100%;
+      max-height: 75vh;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+
+    /* Toast */
+
+    .toast-region {
+      position: fixed;
+      right: 16px;
+      top: 16px;
+      z-index: 1500;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      pointer-events: none;
+      width: min(350px, calc(100% - 32px));
+    }
+
+    .toast {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 12px 14px;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      background: #fff;
+      box-shadow: var(--shadow-md);
+      animation: toastIn .2s ease both;
+    }
+
+    .toast-icon {
+      color: #2563eb;
+      margin-top: 2px;
+    }
+
+    .toast.is-error .toast-icon {
+      color: #dc2626;
+    }
+
+    .toast-title {
+      margin: 0;
+      color: #263248;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .toast-message {
+      margin: 2px 0 0;
+      color: #788398;
+      font-size: 11px;
+      line-height: 1.65;
+    }
+
+    @keyframes toastIn {
+      from {
+        opacity: 0;
+        transform: translateY(-7px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Connection state */
+
+    .connection-warning {
+      display: none;
+      align-items: flex-start;
+      gap: 9px;
+      padding: 13px 15px;
+      margin-bottom: 20px;
+      border: 1px solid #fed7aa;
+      border-radius: 12px;
+      background: #fff7ed;
+      color: #9a3412;
+      font-size: 12px;
+    }
+
+    .connection-warning.is-visible {
+      display: flex;
+    }
+
+    .connection-warning strong {
+      display: block;
+      margin-bottom: 3px;
+    }
+
+    .connection-warning p {
+      margin: 0;
+      color: #9a5b39;
+      line-height: 1.8;
+    }
+
+    .retry-button {
+      flex: 0 0 auto;
+      padding: 5px 9px;
+      border: 1px solid #fdba74;
+      border-radius: 8px;
+      background: #fff;
+      color: #9a3412;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    /* Responsive */
+
+    @media (max-width: 640px) {
+      .container {
+        width: min(100% - 22px, var(--content-width));
+      }
+
+      .topbar-inner {
+        min-height: 59px;
+      }
+
+      .brand-mark {
+        width: 36px;
+        height: 36px;
+      }
+
+      .header-note {
+        font-size: 10px;
+      }
+
+      .hero {
+        padding: 34px 0 21px;
+      }
+
+      .hero-description {
+        max-width: 320px;
+        font-size: 12px;
+      }
+
+      .summary-grid {
+        gap: 8px;
+        margin-bottom: 18px;
+      }
+
+      .summary-card {
+        padding: 12px 10px;
+        border-radius: 12px;
+      }
+
+      .summary-label {
+        font-size: 10px;
+        gap: 4px;
+      }
+
+      .summary-label .icon {
+        width: 15px;
+        height: 15px;
+      }
+
+      .summary-value {
+        font-size: 22px;
+      }
+
+      .summary-subtext {
+        font-size: 9px;
+      }
+
+      .section {
+        border-radius: 15px;
+        margin-bottom: 18px;
+      }
+
+      .section-header {
+        padding: 17px 15px 15px;
+      }
+
+      .section-body {
+        padding: 18px 15px;
+      }
+
+      .section-icon {
+        width: 36px;
+        height: 36px;
+      }
+
+      .section-title {
+        font-size: 16px;
+      }
+
+      .section-description {
+        font-size: 11px;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+      }
+
+      .field-full {
+        grid-column: auto;
+      }
+
+      .form-control {
+        min-height: 46px;
+      }
+
+      .rating-item {
+        gap: 8px;
+        padding: 14px 0;
+      }
+
+      .rating-info {
+        gap: 8px;
+      }
+
+      .rating-icon-box {
+        display: none;
+      }
+
+      .rating-name {
+        font-size: 12px;
+      }
+
+      .rating-description {
+        font-size: 9px;
+      }
+
+      .star-picker {
+        gap: 1px;
+      }
+
+      .star-button {
+        width: 28px;
+        height: 33px;
+      }
+
+      .star-button .icon {
+        width: 22px;
+        height: 22px;
+      }
+
+      .rating-value {
+        width: 18px;
+        font-size: 11px;
+      }
+
+      .filter-panel {
+        grid-template-columns: 1fr;
+        padding: 17px 15px;
+        gap: 12px;
+      }
+
+      .filter-actions {
+        gap: 7px;
+      }
+
+      .filter-actions .button {
+        flex: 1;
+      }
+
+      .filter-status {
+        padding: 11px 15px 0;
+      }
+
+      .review-list {
+        padding: 0 15px;
+      }
+
+      .review-card {
+        padding: 18px 0;
+      }
+
+      .review-category-ratings {
+        gap: 8px 9px;
+        padding: 10px;
+      }
+
+      .review-images {
+        grid-template-columns: repeat(auto-fill, minmax(85px, 1fr));
+        gap: 7px;
+      }
+
+      .pagination {
+        padding: 17px 12px 19px;
+        gap: 7px;
+      }
+
+      .pagination .button {
+        min-width: 0;
+        padding: 7px 9px;
+      }
+
+      .page-indicator {
+        min-width: 65px;
+        font-size: 10px;
+      }
+
+      .privacy-modal-panel {
+        max-height: 91vh;
+        border-radius: 16px;
+      }
+
+      .modal {
+        padding: 11px;
+      }
+
+      .modal-head {
+        padding: 16px 15px 13px;
+      }
+
+      .privacy-modal-body {
+        padding: 18px 16px;
+        font-size: 11px;
+      }
+
+      .modal-footer {
+        padding: 12px 15px 15px;
+      }
+    }
+
+    @media (max-width: 370px) {
+      .header-note {
+        display: none;
+      }
+
+      .rating-description {
+        display: none;
+      }
+
+      .star-button {
+        width: 25px;
+      }
+
+      .star-button .icon {
+        width: 20px;
+        height: 20px;
+      }
+
+      .rating-item {
+        gap: 5px;
+      }
+
+      .review-category-ratings {
+        grid-template-columns: 1fr;
+      }
+
+      .date-filter-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Inline SVG icons -->
+  <svg class="icon-definitions" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <symbol id="i-star" viewBox="0 0 24 24">
+      <path d="m12 3 2.78 5.63 6.22.91-4.5 4.38 1.06 6.19L12 17.18l-5.56 2.93 1.06-6.19L3 9.54l6.22-.91L12 3Z"/>
+    </symbol>
+    <symbol id="i-message" viewBox="0 0 24 24">
+      <path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8A8.5 8.5 0 0 1 8.7 3.9a8.4 8.4 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8v.5Z"/>
+    </symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24">
+      <path d="M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11Z"/>
+      <path d="m9 12 2 2 4-4"/>
+    </symbol>
+    <symbol id="i-user" viewBox="0 0 24 24">
+      <circle cx="12" cy="8" r="4"/>
+      <path d="M5 21a7 7 0 0 1 14 0"/>
+    </symbol>
+    <symbol id="i-users" viewBox="0 0 24 24">
+      <path d="M16 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+      <circle cx="10" cy="7" r="4"/>
+      <path d="M20 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
+    </symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="10"/>
+      <path d="M12 6v6l4 2"/>
+    </symbol>
+    <symbol id="i-heart" viewBox="0 0 24 24">
+      <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21l7.8-7.5 1.1-1.1a5.5 5.5 0 0 0-.1-7.8Z"/>
+    </symbol>
+    <symbol id="i-award" viewBox="0 0 24 24">
+      <circle cx="12" cy="8" r="6"/>
+      <path d="m8.2 13-1.2 9 5-3 5 3-1.2-9"/>
+    </symbol>
+    <symbol id="i-send" viewBox="0 0 24 24">
+      <path d="m22 2-7 20-4-9-9-4Z"/>
+      <path d="M22 2 11 13"/>
+    </symbol>
+    <symbol id="i-upload" viewBox="0 0 24 24">
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+      <path d="m17 8-5-5-5 5M12 3v12"/>
+    </symbol>
+    <symbol id="i-image" viewBox="0 0 24 24">
+      <rect x="3" y="3" width="18" height="18" rx="3"/>
+      <circle cx="8.5" cy="8.5" r="1.5"/>
+      <path d="m21 15-5-5L5 21"/>
+    </symbol>
+    <symbol id="i-x" viewBox="0 0 24 24">
+      <path d="m18 6-12 12M6 6l12 12"/>
+    </symbol>
+    <symbol id="i-search" viewBox="0 0 24 24">
+      <circle cx="11" cy="11" r="8"/>
+      <path d="m21 21-4.35-4.35"/>
+    </symbol>
+    <symbol id="i-filter" viewBox="0 0 24 24">
+      <path d="M4 7h16M7 12h10m-7 5h4"/>
+    </symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24">
+      <rect x="3" y="5" width="18" height="16" rx="2"/>
+      <path d="M16 3v4M8 3v4M3 11h18"/>
+    </symbol>
+    <symbol id="i-chevron-down" viewBox="0 0 24 24">
+      <path d="m6 9 6 6 6-6"/>
+    </symbol>
+    <symbol id="i-chevron-left" viewBox="0 0 24 24">
+      <path d="m15 18-6-6 6-6"/>
+    </symbol>
+    <symbol id="i-chevron-right" viewBox="0 0 24 24">
+      <path d="m9 18 6-6-6-6"/>
+    </symbol>
+    <symbol id="i-check" viewBox="0 0 24 24">
+      <path d="m5 12 4 4L19 6"/>
+    </symbol>
+    <symbol id="i-check-circle" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="10"/>
+      <path d="m8 12 2.5 2.5L16 9"/>
+    </symbol>
+    <symbol id="i-info" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="10"/>
+      <path d="M12 16v-4M12 8h.01"/>
+    </symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="10"/>
+      <path d="M12 8v4m0 4h.01"/>
+    </symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24">
+      <path d="M20 7v5h-5"/>
+      <path d="M4 17v-5h5"/>
+      <path d="M5.6 9a7 7 0 0 1 11.55-2.6L20 12M4 12l2.85 5.6A7 7 0 0 0 18.4 15"/>
+    </symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24">
+      <rect x="3" y="11" width="18" height="11" rx="2"/>
+      <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+    </symbol>
+    <symbol id="i-file-text" viewBox="0 0 24 24">
+      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/>
+      <path d="M14 2v6h6M8 13h8M8 17h8"/>
+    </symbol>
+    <symbol id="i-tag" viewBox="0 0 24 24">
+      <path d="M20.59 13.41 11 3.83A2.8 2.8 0 0 0 9 3H4a1 1 0 0 0-1 1v5a2.8 2.8 0 0 0 .83 2l9.58 9.58a2 2 0 0 0 2.83 0l4.35-4.35a2 2 0 0 0 0-2.82Z"/>
+      <circle cx="7.5" cy="7.5" r=".5"/>
+    </symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="10"/>
+      <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10Z"/>
+    </symbol>
+    <symbol id="i-external" viewBox="0 0 24 24">
+      <path d="M15 3h6v6M10 14 21 3"/>
+      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+    </symbol>
+    <symbol id="i-filter-x" viewBox="0 0 24 24">
+      <path d="M3 4h18l-7 8v6l-4 2v-8Z"/>
+      <path d="m16 16 5 5m0-5-5 5"/>
+    </symbol>
+    <symbol id="i-home" viewBox="0 0 24 24">
+      <path d="m3 10 9-7 9 7M5 9v12h14V9M9 21v-7h6v7"/>
+    </symbol>
+    <symbol id="i-loader" viewBox="0 0 24 24">
+      <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+    </symbol>
+    <symbol id="i-facebook" viewBox="0 0 24 24">
+      <path d="M24 12.07C24 5.4 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.5h3.05V9.4c0-3.02 1.79-4.69 4.54-4.69 1.31 0 2.68.24 2.68.24V7.9h-1.51c-1.49 0-1.95.93-1.95 1.88v2.27h3.32l-.53 3.5h-2.79V24C19.61 23.1 24 18.1 24 12.07Z"/>
+    </symbol>
+  </svg>
+
+  <div class="page">
+    <header class="topbar">
+      <div class="container topbar-inner">
+        <a href="#" class="brand" id="homeLink" aria-label="กลับไปด้านบน">
+          <span class="brand-mark">
+            <svg class="icon icon-lg"><use href="#i-message"></use></svg>
+          </span>
+          <span>
+            <span class="brand-title" id="brandTitle">รีวิวการให้บริการ</span>
+            <span class="brand-caption">SERVICE REVIEW</span>
+          </span>
+        </a>
+
+        <div class="header-note">
+          <span class="status-dot"></span>
+          แบ่งปันประสบการณ์ของคุณ
+        </div>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="hero" id="home">
+        <div class="hero-content">
+          <span class="hero-kicker">
+            <svg class="icon icon-sm"><use href="#i-star"></use></svg>
+            YOUR FEEDBACK MATTERS
+          </span>
+
+          <h1 id="heroTitle">รีวิวการให้บริการ</h1>
+
+          <p class="hero-description" id="heroDescription">
+            แบ่งปันประสบการณ์และความคิดเห็นของคุณ เพื่อเป็นส่วนหนึ่งในการพัฒนาคุณภาพการบริการ
+          </p>
+
+          <div class="powered-by">
+            <span>Powered by</span>
+            <a href="https://www.facebook.com/share/18UcQwQxyM/"
+               target="_blank"
+               rel="noopener noreferrer"
+               id="poweredByLink">
+              <svg class="facebook-icon"><use href="#i-facebook"></use></svg>
+              <span id="poweredByName">Ponlabat Chaipakdee</span>
+              <svg class="icon icon-sm"><use href="#i-external"></use></svg>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <div id="connectionWarning" class="connection-warning" role="alert">
+        <svg class="icon"><use href="#i-alert"></use></svg>
+        <div style="flex:1">
+          <strong>ไม่สามารถโหลดข้อมูลจากเซิร์ฟเวอร์ได้</strong>
+          <p id="connectionWarningText">
+            โปรดตรวจสอบการเชื่อมต่อ
+          </p>
+        </div>
+        <button type="button" class="retry-button" id="retryConnection">
+          ลองอีกครั้ง
+        </button>
+      </div>
+
+      <section class="summary-grid" aria-label="สรุปคะแนนรีวิว">
+        <div class="summary-card">
+          <div class="summary-label">
+            <svg class="icon icon-sm gold"><use href="#i-star"></use></svg>
+            คะแนนเฉลี่ย
+          </div>
+          <div class="summary-value" id="summaryAverage">—</div>
+          <div class="summary-subtext">จากคะแนนรีวิวโดยรวม</div>
+        </div>
+
+        <div class="summary-card">
+          <div class="summary-label">
+            <svg class="icon icon-sm" style="color:#2563eb"><use href="#i-message"></use></svg>
+            รีวิวทั้งหมด
+          </div>
+          <div class="summary-value" id="summaryCount">—</div>
+          <div class="summary-subtext">รายการที่เผยแพร่แล้ว</div>
+        </div>
+
+        <div class="summary-card">
+          <div class="summary-label">
+            <svg class="icon icon-sm" style="color:#0f9b75"><use href="#i-check-circle"></use></svg>
+            บริการที่เปิดให้รีวิว
+          </div>
+          <div class="summary-value" id="summaryServices">—</div>
+          <div class="summary-subtext">รายการที่เลือกได้ในแบบฟอร์ม</div>
+        </div>
+      </section>
+
+      <!-- REVIEW FORM -->
+      <section class="section" id="reviewFormSection">
+        <div class="section-header">
+          <div class="section-heading">
+            <div class="section-icon">
+              <svg class="icon icon-lg"><use href="#i-file-text"></use></svg>
+            </div>
+            <div>
+              <h2 class="section-title">เขียนรีวิวการให้บริการ</h2>
+              <p class="section-description">
+                กรุณากรอกข้อมูลและให้คะแนนตามประสบการณ์จริงของคุณ
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-body">
+          <form id="reviewForm" novalidate>
+            <div class="form-grid">
+              <!-- Name -->
+              <div class="field field-full">
+                <label class="field-label" for="displayName">
+                  ชื่อ-สกุล / ชื่อเล่น
+                  <span class="required-mark">*</span>
+                </label>
+
+                <div class="input-wrap">
+                  <svg class="icon field-icon"><use href="#i-user"></use></svg>
+                  <input
+                    class="form-control has-icon"
+                    id="displayName"
+                    name="displayName"
+                    type="text"
+                    maxlength="100"
+                    autocomplete="name"
+                    placeholder="กรอกชื่อ-สกุล หรือชื่อเล่น"
+                  >
+                </div>
+
+                <div class="inline-choice">
+                  <span class="field-help">ชื่อที่ระบุอาจปรากฏบนรีวิวสาธารณะ</span>
+                  <label class="checkbox-line" for="isAnonymous">
+                    <input type="checkbox" id="isAnonymous" name="isAnonymous">
+                    ไม่ระบุตัวตน
+                  </label>
+                </div>
+              </div>
+
+              <!-- Service -->
+              <div class="field">
+                <label class="field-label" for="serviceId">
+                  บริการที่ใช้
+                  <span class="required-mark">*</span>
+                </label>
+
+                <div class="input-wrap">
+                  <svg class="icon field-icon"><use href="#i-tag"></use></svg>
+                  <select
+                    class="form-control has-icon"
+                    id="serviceId"
+                    name="serviceId"
+                    required
+                  >
+                    <option value="">กำลังโหลดรายการบริการ...</option>
+                  </select>
+                  <svg class="icon select-arrow"><use href="#i-chevron-down"></use></svg>
+                </div>
+                <span class="field-help">เลือกบริการที่คุณใช้จริง</span>
+              </div>
+
+              <!-- Price -->
+              <div class="field">
+                <label class="field-label" for="price">
+                  ราคาที่ใช้บริการ
+                  <span class="required-mark">*</span>
+                </label>
+
+                <div class="input-wrap">
+                  <svg class="icon field-icon"><use href="#i-tag"></use></svg>
+                  <input
+                    class="form-control has-icon"
+                    id="price"
+                    name="price"
+                    type="number"
+                    min="0"
+                    max="1000000000"
+                    step="0.01"
+                    inputmode="decimal"
+                    placeholder="ระบุราคา เช่น 100"
+                  >
+                </div>
+
+                <div class="inline-choice">
+                  <span class="field-help">ระบุเป็นจำนวนเงิน</span>
+                  <label class="checkbox-line" for="isPriceHidden">
+                    <input type="checkbox" id="isPriceHidden" name="isPriceHidden">
+                    ไม่ระบุราคา
+                  </label>
+                </div>
+              </div>
+
+              <!-- Images -->
+              <div class="field field-full">
+                <label class="field-label" for="imageInput">
+                  รูปภาพประกอบการใช้บริการ
+                  <span class="optional-text">(ไม่บังคับ)</span>
+                </label>
+
+                <label class="upload-zone" id="uploadZone" for="imageInput">
+                  <div class="upload-zone-inner">
+                    <div class="upload-icon-box">
+                      <svg class="icon icon-lg"><use href="#i-upload"></use></svg>
+                    </div>
+                    <span class="upload-title">เลือกรูปภาพที่ต้องการอัปโหลด</span>
+                    <span class="upload-subtitle">
+                      JPG, PNG, WebP หรือ GIF · ไม่เกิน 5 MB ต่อรูป · สูงสุด 5 รูป
+                    </span>
+                  </div>
+                </label>
+
+                <input
+                  id="imageInput"
+                  type="file"
+                  accept="image/jpeg,image/png,image/webp,image/gif"
+                  multiple
+                >
+
+                <div class="preview-grid" id="previewGrid" aria-live="polite"></div>
+                <span class="field-help" id="imageHelp">
+                  รูปภาพจะอัปโหลดไปยัง ImgBB เมื่อกดส่งรีวิว
+                </span>
+              </div>
+            </div>
+
+            <!-- Ratings -->
+            <div style="margin-top:30px">
+              <div style="margin-bottom:16px">
+                <h3 style="margin:0;font-size:15px;font-weight:700">
+                  ให้คะแนนการบริการ
+                  <span class="required-mark">*</span>
+                </h3>
+                <p class="section-description">
+                  แตะดาวเพื่อประเมินแต่ละด้าน ตั้งแต่ 1 ถึง 5 ดาว
+                </p>
+              </div>
+
+              <div class="rating-list" id="ratingList">
+                <div class="rating-item">
+                  <div class="rating-info">
+                    <div class="rating-icon-box">
+                      <svg class="icon"><use href="#i-users"></use></svg>
+                    </div>
+                    <div>
+                      <p class="rating-name">การบริการ</p>
+                      <span class="rating-description">มารยาทและการดูแลลูกค้า</span>
+                    </div>
+                  </div>
+                  <div class="star-picker" data-rating-group="ratingService" aria-label="คะแนนการบริการ"></div>
+                </div>
+
+                <div class="rating-item">
+                  <div class="rating-info">
+                    <div class="rating-icon-box">
+                      <svg class="icon"><use href="#i-clock"></use></svg>
+                    </div>
+                    <div>
+                      <p class="rating-name">ความรวดเร็ว</p>
+                      <span class="rating-description">ระยะเวลาและความตรงต่อเวลา</span>
+                    </div>
+                  </div>
+                  <div class="star-picker" data-rating-group="ratingSpeed" aria-label="คะแนนความรวดเร็ว"></div>
+                </div>
+
+                <div class="rating-item">
+                  <div class="rating-info">
+                    <div class="rating-icon-box">
+                      <svg class="icon"><use href="#i-heart"></use></svg>
+                    </div>
+                    <div>
+                      <p class="rating-name">ความใส่ใจ</p>
+                      <span class="rating-description">ความเข้าใจและเอาใจใส่</span>
+                    </div>
+                  </div>
+                  <div class="star-picker" data-rating-group="ratingCare" aria-label="คะแนนความใส่ใจ"></div>
+                </div>
+
+                <div class="rating-item">
+                  <div class="rating-info">
+                    <div class="rating-icon-box">
+                      <svg class="icon"><use href="#i-award"></use></svg>
+                    </div>
+                    <div>
+                      <p class="rating-name">คุณภาพงาน</p>
+                      <span class="rating-description">ความถูกต้องและคุณภาพผลงาน</span>
+                    </div>
+                  </div>
+                  <div class="star-picker" data-rating-group="ratingQuality" aria-label="คะแนนคุณภาพงาน"></div>
+                </div>
+
+                <div class="rating-item">
+                  <div class="rating-info">
+                    <div class="rating-icon-box">
+                      <svg class="icon"><use href="#i-star"></use></svg>
+                    </div>
+                    <div>
+                      <p class="rating-name">ความพึงพอใจโดยรวม</p>
+                      <span class="rating-description">ความประทับใจต่อบริการทั้งหมด</span>
+                    </div>
+                  </div>
+                  <div class="star-picker" data-rating-group="ratingOverall" aria-label="คะแนนความพึงพอใจโดยรวม"></div>
+                </div>
+              </div>
+
+              <div class="rating-tip">
+                <svg class="icon icon-sm" style="margin-top:2px"><use href="#i-info"></use></svg>
+                <span>
+                  คะแนนทุกด้านเป็นข้อมูลจำเป็น กรุณาเลือกดาวให้ครบทั้ง 5 หัวข้อก่อนส่งรีวิว
+                </span>
+              </div>
+            </div>
+
+            <!-- Comment -->
+            <div class="field field-full" style="margin-top:26px">
+              <label class="field-label" for="comment">
+                ความคิดเห็นเพิ่มเติม
+                <span class="optional-text">(ไม่บังคับ)</span>
+              </label>
+              <textarea
+                class="form-control"
+                id="comment"
+                name="comment"
+                maxlength="3000"
+                placeholder="เล่าประสบการณ์ ความประทับใจ หรือข้อเสนอแนะของคุณ..."
+              ></textarea>
+              <div class="field-help" style="display:flex;justify-content:space-between;gap:10px">
+                <span>โปรดใช้ถ้อยคำสุภาพและไม่เปิดเผยข้อมูลส่วนบุคคลของบุคคลอื่น</span>
+                <span id="commentCount">0/3000</span>
+              </div>
+            </div>
+
+            <!-- Consent -->
+            <div style="margin-top:29px">
+              <h3 style="margin:0 0 3px;font-size:15px;font-weight:700">
+                การยินยอมและการรับทราบ
+              </h3>
+              <p class="section-description" style="margin-bottom:17px">
+                กรุณาอ่านข้อความและเลือกยืนยันในรายการที่จำเป็นก่อนส่งรีวิว
+              </p>
+
+              <div class="consent-list">
+                <div class="consent-row">
+                  <input
+                    type="checkbox"
+                    id="privacyAcknowledgement"
+                    name="privacyAcknowledgement"
+                    aria-label="รับทราบประกาศความเป็นส่วนตัว"
+                  >
+                  <label for="privacyAcknowledgement">
+                    <span class="consent-title">
+                      ข้าพเจ้ารับทราบประกาศความเป็นส่วนตัวเกี่ยวกับการเก็บรวบรวม ใช้ และประมวลผลข้อมูลส่วนบุคคล
+                      <span class="required-mark">*</span>
+                    </span>
+                    ข้าพเจ้ารับทราบรายละเอียดเกี่ยวกับข้อมูลที่เว็บไซต์เก็บรวบรวม วัตถุประสงค์ในการประมวลผลข้อมูล และสิทธิของเจ้าของข้อมูล โดยสามารถอ่านประกาศฉบับเต็มได้จากหน้าต่างประกาศความเป็นส่วนตัว
+                    <br>
+                    <button class="text-link" type="button" id="openPrivacyNotice">
+                      อ่านประกาศความเป็นส่วนตัว
+                    </button>
+                  </label>
+                </div>
+
+                <div class="consent-row">
+                  <input
+                    type="checkbox"
+                    id="publishConsent"
+                    name="publishConsent"
+                    aria-label="ยินยอมให้เผยแพร่รีวิว"
+                  >
+                  <label for="publishConsent">
+                    <span class="consent-title">
+                      ข้าพเจ้ายินยอมให้เผยแพร่คะแนนรีวิวและความคิดเห็นของข้าพเจ้าต่อสาธารณะตามเงื่อนไขที่กำหนด
+                      <span class="required-mark">*</span>
+                    </span>
+                    ข้าพเจ้าอนุญาตให้เว็บไซต์แสดงคะแนน ความคิดเห็น รูปภาพประกอบที่ส่งมา และชื่อที่ใช้แสดงผลตามที่ระบุไว้ เพื่อให้บุคคลทั่วไปสามารถอ่านรีวิวได้ โดยเว็บไซต์จะไม่ตั้งใจแสดงข้อมูลติดต่อส่วนตัวที่ไม่จำเป็นต่อการเผยแพร่รีวิว
+                  </label>
+                </div>
+
+                <div class="consent-row">
+                  <input
+                    type="checkbox"
+                    id="accuracyConsent"
+                    name="accuracyConsent"
+                    aria-label="รับรองความถูกต้องของรีวิว"
+                  >
+                  <label for="accuracyConsent">
+                    <span class="consent-title">
+                      ข้าพเจ้าขอรับรองว่าคะแนนและความคิดเห็นนี้เป็นไปตามประสบการณ์ของตนเอง และไม่ละเมิดสิทธิของบุคคลอื่น
+                      <span class="required-mark">*</span>
+                    </span>
+                    ข้าพเจ้าจะไม่ใช้ระบบนี้เพื่อส่งข้อความที่เป็นเท็จโดยเจตนา ข่มขู่ คุกคาม เปิดเผยข้อมูลส่วนบุคคลโดยไม่มีสิทธิ หรือเผยแพร่เนื้อหาที่ผิดกฎหมาย
+                  </label>
+                </div>
+              </div>
+
+              <div class="legal-note">
+                การส่งรีวิวหมายถึงการส่งข้อมูลเข้าสู่ระบบเพื่อจัดเก็บและเผยแพร่ตามตัวเลือกที่ท่านยืนยัน
+                โปรดตรวจสอบคะแนน ความคิดเห็น ชื่อ และรูปภาพก่อนส่ง
+                การใช้สิทธิหรือถอนความยินยอมสามารถดำเนินการผ่านช่องทางติดต่อที่ประกาศไว้
+                โดยเป็นไปตามกฎหมายและเงื่อนไขที่เกี่ยวข้อง
+              </div>
+            </div>
+
+            <!-- Submit -->
+            <div class="submit-area">
+              <div class="submit-caption">
+                <svg class="icon icon-sm"><use href="#i-shield"></use></svg>
+                <span>
+                  ข้อมูลจะถูกส่งไปยังระบบจัดเก็บรีวิว และแสดงบนเว็บไซต์หลังจากบันทึกสำเร็จ
+                </span>
+              </div>
+
+              <button
+                type="submit"
+                class="submit-button"
+                id="submitButton"
+                disabled
+              >
+                <svg class="icon"><use href="#i-send"></use></svg>
+                <span>ส่งรีวิว</span>
+              </button>
+
+              <p id="formStatus" class="field-help" role="status" style="text-align:center;margin-top:10px">
+                กรุณากรอกข้อมูลและยืนยันให้ครบก่อนส่งรีวิว
+              </p>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- PUBLIC REVIEWS -->
+      <section class="section reviews-section" id="reviewsSection">
+        <div class="section-header">
+          <div class="section-heading">
+            <div class="section-icon">
+              <svg class="icon icon-lg"><use href="#i-message"></use></svg>
+            </div>
+            <div>
+              <h2 class="section-title">รีวิวจากผู้ใช้บริการ</h2>
+              <p class="section-description">
+                อ่านประสบการณ์และคะแนนจากรีวิวที่เผยแพร่แล้ว
+              </p>
+            </div>
+          </div>
+
+          <span class="review-count-badge" id="reviewCountBadge">— รีวิว</span>
+        </div>
+
+        <div class="filter-panel">
+          <div class="filter-field">
+            <label class="filter-label" for="filterSearch">ค้นหารีวิว</label>
+            <div class="search-wrap">
+              <svg class="icon icon-sm"><use href="#i-search"></use></svg>
+              <input
+                type="search"
+                id="filterSearch"
+                class="filter-control"
+                placeholder="ค้นหาชื่อ บริการ หรือความคิดเห็น..."
+                maxlength="200"
+              >
+            </div>
+          </div>
+
+          <div class="filter-field">
+            <label class="filter-label" for="filterSort">เรียงลำดับ</label>
+            <select class="filter-control" id="filterSort">
+              <option value="newest">ใหม่ที่สุด</option>
+              <option value="oldest">เก่าที่สุด</option>
+            </select>
+          </div>
+
+          <div class="filter-field">
+            <label class="filter-label" for="filterService">บริการ</label>
+            <select class="filter-control" id="filterService">
+              <option value="">ทุกบริการ</option>
+            </select>
+          </div>
+
+          <div class="filter-field">
+            <label class="filter-label" for="filterRating">คะแนนรีวิวโดยรวม</label>
+            <select class="filter-control" id="filterRating">
+              <option value="">ทุกคะแนน</option>
+              <option value="5">5 ดาว</option>
+              <option value="4">4 ดาว</option>
+              <option value="3">3 ดาว</option>
+              <option value="2">2 ดาว</option>
+              <option value="1">1 ดาว</option>
+            </select>
+          </div>
+
+          <div class="filter-field field-full">
+            <label class="filter-label">ค้นหาตามช่วงวันที่</label>
+            <div class="date-filter-grid">
+              <div>
+                <label class="filter-label" for="filterDateFrom">ตั้งแต่วันที่</label>
+                <input type="date" class="filter-control" id="filterDateFrom">
+              </div>
+              <div>
+                <label class="filter-label" for="filterDateTo">ถึงวันที่</label>
+                <input type="date" class="filter-control" id="filterDateTo">
+              </div>
+            </div>
+          </div>
+
+          <div class="filter-actions">
+            <button class="button button-primary" type="button" id="applyFilters">
+              <svg class="icon icon-sm"><use href="#i-filter"></use></svg>
+              ค้นหารีวิว
+            </button>
+            <button class="button button-secondary" type="button" id="clearFilters">
+              <svg class="icon icon-sm"><use href="#i-filter-x"></use></svg>
+              ล้างตัวกรอง
+            </button>
+            <button class="button button-secondary" type="button" id="refreshReviews">
+              <svg class="icon icon-sm"><use href="#i-refresh"></use></svg>
+              โหลดใหม่
+            </button>
+          </div>
+        </div>
+
+        <div class="filter-status" id="filterStatus" role="status">
+          กำลังโหลดรีวิว...
+        </div>
+
+        <div class="review-list" id="reviewList" aria-live="polite">
+          <div class="state-panel">
+            <div class="small-spinner"></div>
+            <h3 class="state-title">กำลังโหลดรีวิว</h3>
+            <p class="state-description">กำลังเรียกข้อมูลล่าสุดจากระบบ</p>
+          </div>
+        </div>
+
+        <div class="pagination" id="pagination" hidden>
+          <button class="button button-secondary" type="button" id="previousPage">
+            <svg class="icon icon-sm"><use href="#i-chevron-left"></use></svg>
+            ก่อนหน้า
+          </button>
+          <span class="page-indicator" id="pageIndicator">หน้า 1 / 1</span>
+          <button class="button button-secondary" type="button" id="nextPage">
+            ถัดไป
+            <svg class="icon icon-sm"><use href="#i-chevron-right"></use></svg>
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <div>รีวิวการให้บริการ · Service Review</div>
+        <div class="footer-links">
+          <button class="text-link" type="button" id="footerPrivacyLink">ประกาศความเป็นส่วนตัว</button>
+          <a href="dashboard.html">สำหรับผู้ดูแลระบบ</a>
+          <a href="https://www.facebook.com/share/18UcQwQxyM/" target="_blank" rel="noopener noreferrer">ติดต่อผู้พัฒนา</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- PRIVACY NOTICE MODAL -->
+  <div class="modal" id="privacyModal" role="dialog" aria-modal="true" aria-labelledby="privacyModalTitle" hidden>
+    <div class="modal-panel privacy-modal-panel">
+      <div class="modal-head">
+        <div class="modal-heading">
+          <div class="modal-heading-icon">
+            <svg class="icon icon-lg"><use href="#i-shield"></use></svg>
+          </div>
+          <div>
+            <h2 class="modal-title" id="privacyModalTitle">ประกาศความเป็นส่วนตัว</h2>
+            <p class="modal-subtitle">ข้อมูลเกี่ยวกับการเก็บรวบรวม ใช้ และประมวลผลข้อมูลส่วนบุคคล</p>
+          </div>
+        </div>
+        <button class="icon-button" type="button" data-close-modal="privacyModal" aria-label="ปิดหน้าต่าง">
+          <svg class="icon"><use href="#i-x"></use></svg>
+        </button>
+      </div>
+
+      <div class="privacy-modal-body" id="privacyModalBody" tabindex="0">
+        <div class="privacy-section">
+          <h3>1. การรับทราบประกาศความเป็นส่วนตัว</h3>
+          <p>
+            ข้าพเจ้าได้รับทราบและมีโอกาสอ่านประกาศความเป็นส่วนตัวของเว็บไซต์
+            ซึ่งอธิบายถึงประเภทของข้อมูลส่วนบุคคลที่มีการเก็บรวบรวม
+            วัตถุประสงค์และวิธีการประมวลผลข้อมูล ระยะเวลาการจัดเก็บข้อมูล
+            บุคคลหรือหน่วยงานที่อาจได้รับการเปิดเผยข้อมูล
+            มาตรการรักษาความมั่นคงปลอดภัยของข้อมูล
+            ตลอดจนสิทธิของเจ้าของข้อมูลส่วนบุคคลตามกฎหมายที่เกี่ยวข้อง
+          </p>
+          <p>
+            ข้อมูลดังกล่าวอาจรวมถึงคะแนนรีวิว ความคิดเห็น ชื่อหรือชื่อที่ใช้แสดงผล
+            และข้อมูลทางเทคนิคที่จำเป็นต่อการทำงานของเว็บไซต์
+            ทั้งนี้ เว็บไซต์จะเก็บรวบรวมและประมวลผลข้อมูลเท่าที่จำเป็นตามวัตถุประสงค์ที่ได้แจ้งไว้
+            และภายใต้ฐานทางกฎหมายที่เกี่ยวข้อง
+          </p>
+        </div>
+
+        <div class="privacy-section">
+          <h3>2. ประเภทของข้อมูลที่เกี่ยวข้องกับการรีวิว</h3>
+          <p>
+            ข้อมูลที่ส่งผ่านแบบฟอร์มอาจประกอบด้วยชื่อหรือชื่อเล่น
+            ตัวเลือกไม่ระบุตัวตน ชื่อบริการที่เลือก ราคาที่ใช้บริการ
+            ตัวเลือกไม่ระบุราคา คะแนนประเมินในแต่ละหัวข้อ
+            ความคิดเห็นเพิ่มเติม และ URL ของภาพประกอบที่อัปโหลดผ่านผู้ให้บริการภายนอก
+          </p>
+          <p>
+            ระบบอาจประมวลผลข้อมูลทางเทคนิคที่จำเป็นเพื่อป้องกันการส่งข้อมูลซ้ำ
+            จำกัดการใช้งานที่ผิดปกติ รักษาความปลอดภัย และตรวจสอบการทำงานของระบบ
+            โดยควรหลีกเลี่ยงการส่งข้อมูลที่ไม่จำเป็นต่อการรีวิว
+          </p>
+        </div>
+
+        <div class="privacy-section">
+          <h3>3. วัตถุประสงค์ในการประมวลผลข้อมูล</h3>
+          <p>
+            ข้อมูลจะถูกใช้เพื่อรับ บันทึก แสดงผล และจัดการคะแนนรีวิว
+            สรุปผลประเมินคุณภาพบริการ ค้นหาและกรองรีวิวตามเงื่อนไขที่กำหนด
+            ป้องกันการส่งข้อมูลผิดปกติ และดูแลความปลอดภัยและประสิทธิภาพของเว็บไซต์
+            ทั้งนี้จะต้องสอดคล้องกับวัตถุประสงค์และฐานทางกฎหมายที่แจ้งไว้จริง
+          </p>
+        </div>
+
+        <div class="privacy-section">
+          <h3>4. การเปิดเผยข้อมูลต่อสาธารณะ</h3>
+          <p>
+            หากผู้ส่งรีวิวเลือกยินยอมให้เผยแพร่ คะแนนรีวิว
+            ความคิดเห็น ชื่อที่ใช้แสดงผล และภาพประกอบที่ส่งมาอาจปรากฏต่อผู้เข้าชมเว็บไซต์
+            ตามขอบเขตที่แจ้งไว้ก่อนส่งข้อมูล
+            ข้อมูลที่แสดงต่อสาธารณะอาจถูกบันทึก คัดลอก หรือส่งต่อโดยบุคคลอื่นได้
+          </p>
+          <p>
+            ผู้ส่งรีวิวควรตรวจสอบชื่อ ความคิดเห็น และรูปภาพก่อนส่ง
+            และไม่ควรใส่หมายเลขโทรศัพท์ ที่อยู่อีเมล ที่อยู่ส่วนบุคคล
+            เอกสารระบุตัวตน หรือข้อมูลอ่อนไหวที่ไม่จำเป็น
+          </p>
+        </div>
+
+        <div class="privacy-section">
+          <h3>5. ผู้ให้บริการภายนอก</h3>
+          <p>
+            เว็บไซต์ใช้ Google Apps Script และ Google Sheets
+            สำหรับประมวลผลคำขอและจัดเก็บข้อมูลรีวิว
+            และใช้ ImgBB เป็นผู้ให้บริการจัดเก็บภาพตามการตั้งค่าของระบบ
+            การใช้งานบริการดังกล่าวอยู่ภายใต้เงื่อนไขและนโยบายของผู้ให้บริการแต่ละราย
+            ซึ่งอาจมีการประมวลผลข้อมูลทางเทคนิคตามความจำเป็นในการให้บริการ
+          </p>
+        </div>
+
+        <div class="privacy-section">
+          <h3>6. ระยะเวลาการจัดเก็บข้อมูล</h3>
+          <p>
+            ข้อมูลรีวิวจะถูกจัดเก็บตามระยะเวลาที่จำเป็นต่อวัตถุประสงค์ในการดำเนินงาน
+            การรักษาประวัติรีวิว การตรวจสอบข้อร้องเรียน หรือการปฏิบัติตามกฎหมายที่เกี่ยวข้อง
+            โดยผู้ดูแลเว็บไซต์ควรกำหนดระยะเวลาจัดเก็บและแนวทางลบหรือทำให้ข้อมูลไม่สามารถระบุตัวบุคคลได้
+            ให้เหมาะสมกับการใช้งานจริง
+          </p>
+        </div>
+
+        <div class="privacy-section">
+          <h3>7. มาตรการรักษาความมั่นคงปลอดภัย</h3>
+          <p>
+            เว็บไซต์ควรใช้มาตรการทางเทคนิคและการบริหารจัดการที่เหมาะสม
+            เพื่อป้องกันการเข้าถึง การเปิดเผย การเปลี่ยนแปลง หรือการใช้ข้อมูลโดยไม่มีสิทธิ
+            อย่างไรก็ตาม การส่งข้อมูลผ่านอินเทอร์เน็ตและการจัดเก็บโดยผู้ให้บริการภายนอก
+            อาจมีความเสี่ยงที่ไม่สามารถกำจัดได้ทั้งหมด
+          </p>
+        </div>
+
+        <div class="privacy-section">
+          <h3>8. สิทธิของเจ้าของข้อมูล</h3>
+          <p>
+            เจ้าของข้อมูลอาจมีสิทธิขอเข้าถึง รับสำเนา แก้ไข ลบหรือทำลายข้อมูล
+            คัดค้านหรือจำกัดการประมวลผล ขอรับหรือโอนย้ายข้อมูล
+            และถอนความยินยอมในกรณีที่การประมวลผลอาศัยความยินยอม
+            ทั้งนี้เป็นไปตามเงื่อนไข ข้อยกเว้น และขั้นตอนที่กฎหมายกำหนด
+          </p>
+          <p>
+            การถอนความยินยอมไม่กระทบความชอบด้วยกฎหมายของการประมวลผลที่เกิดขึ้นก่อนการถอน
+            และอาจไม่ทำให้สำเนาที่บุคคลอื่นนำไปจัดเก็บไว้นอกเว็บไซต์ถูกลบโดยอัตโนมัติ
+          </p>
+        </div>
+
+        <div class="privacy-section">
+          <h3>9. การติดต่อผู้ดูแลเว็บไซต์</h3>
+          <p>
+            หากต้องการสอบถาม ขอใช้สิทธิ หรือแจ้งปัญหาเกี่ยวกับข้อมูลส่วนบุคคล
+            สามารถติดต่อผู้ดูแลเว็บไซต์ผ่านช่องทางติดต่อที่ประกาศไว้
+            โดยควรให้ข้อมูลเท่าที่จำเป็นเพื่อใช้ตรวจสอบและดำเนินการตามคำขอ
+          </p>
+        </div>
+
+        <div class="privacy-section">
+          <h3>10. การรับทราบ</h3>
+          <p>
+            โปรดเลื่อนอ่านประกาศนี้จนถึงส่วนล่างสุดก่อนกดยืนยัน
+            การกดยอมรับในหน้าต่างนี้เป็นการยืนยันการรับทราบประกาศความเป็นส่วนตัว
+            และไม่ถือเป็นความยินยอมครอบคลุมการประมวลผลทุกประเภทโดยอัตโนมัติ
+            การเผยแพร่รีวิวต้องพิจารณาจากตัวเลือกการเผยแพร่ที่แยกต่างหาก
+          </p>
+        </div>
+      </div>
+
+      <div class="privacy-scroll-hint" id="privacyScrollHint" role="status">
+        <svg class="icon icon-sm"><use href="#i-info"></use></svg>
+        กรุณาเลื่อนลงด้านล่างสุดเพื่อกดยินยอม
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="button button-secondary" id="cancelPrivacy">
+          ยกเลิก
+        </button>
+        <button
+          type="button"
+          class="button privacy-consent-button"
+          id="agreePrivacy"
+          disabled
+        >
+          <svg class="icon icon-sm"><use href="#i-check"></use></svg>
+          ยินยอม
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- LOADING MODAL -->
+  <div class="modal" id="loadingModal" role="dialog" aria-modal="true" aria-labelledby="loadingTitle" hidden>
+    <div class="modal-panel loading-modal-panel">
+      <div class="loading-dots" aria-hidden="true">
+        <span class="loading-dot"></span>
+        <span class="loading-dot"></span>
+        <span class="loading-dot"></span>
+        <span class="loading-dot"></span>
+      </div>
+      <h2 class="loading-title" id="loadingTitle">กำลังส่งรีวิว</h2>
+      <p class="loading-description" id="loadingDescription">
+        กรุณารอสักครู่ ระบบกำลังดำเนินการบันทึกข้อมูลของคุณ
+      </p>
+      <div class="progress-track" aria-hidden="true">
+        <div class="progress-bar"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUCCESS MODAL -->
+  <div class="modal" id="successModal" role="dialog" aria-modal="true" aria-labelledby="successTitle" hidden>
+    <div class="modal-panel success-modal-panel">
+      <div class="success-icon-wrap" aria-hidden="true">
+        <svg class="success-circle" viewBox="0 0 120 120">
+          <circle class="success-circle-bg" cx="60" cy="60" r="57"></circle>
+          <path class="success-check" d="M34 61 52 79 89 42"></path>
+        </svg>
+      </div>
+      <h2 class="success-title" id="successTitle">ส่งรีวิวสำเร็จ</h2>
+      <p class="success-description">
+        ขอบคุณที่แบ่งปันประสบการณ์ รีวิวของคุณถูกบันทึกเรียบร้อยแล้ว
+      </p>
+      <button type="button" class="button button-primary" id="viewNewReview">
+        <svg class="icon icon-sm"><use href="#i-message"></use></svg>
+        ดูรีวิว
+      </button>
+      <button type="button" class="button button-secondary" id="closeSuccess" style="margin-top:8px">
+        ปิดหน้าต่าง
+      </button>
+    </div>
+  </div>
+
+  <!-- GENERAL NOTICE MODAL -->
+  <div class="modal" id="noticeModal" role="dialog" aria-modal="true" aria-labelledby="noticeTitle" hidden>
+    <div class="modal-panel notice-modal-panel">
+      <div class="notice-icon" id="noticeIcon">
+        <svg class="icon icon-xl"><use href="#i-info"></use></svg>
+      </div>
+      <h2 class="success-title" id="noticeTitle">แจ้งให้ทราบ</h2>
+      <p class="success-description" id="noticeMessage"></p>
+      <button type="button" class="button button-primary" id="noticeOkay">
+        รับทราบ
+      </button>
+    </div>
+  </div>
+
+  <!-- IMAGE LIGHTBOX -->
+  <div class="modal" id="lightboxModal" role="dialog" aria-modal="true" aria-label="ดูรูปภาพรีวิว" hidden>
+    <div class="modal-panel lightbox-panel">
+      <div class="lightbox-head">
+        <button type="button" class="icon-button" data-close-modal="lightboxModal" aria-label="ปิดรูปภาพ">
+          <svg class="icon"><use href="#i-x"></use></svg>
+        </button>
+      </div>
+      <div class="lightbox-image-area">
+        <img src="" alt="รูปภาพประกอบรีวิว" id="lightboxImage" class="lightbox-image">
+      </div>
+    </div>
+  </div>
+
+  <div class="toast-region" id="toastRegion" aria-live="polite" aria-atomic="false"></div>
+
+  <script>
+    "use strict";
+
+    /* =========================================================
+       CONFIGURATION
+       ========================================================= */
+
+    const CONFIG = Object.freeze({
+      API_URL: "https://script.google.com/macros/s/AKfycbz21CxKzsSanhJKFVGUBkgUfM8Y1MHjCG7oDZWVHNQHf-6LTv8JdY2Pp0aPDhNOHhs/exec",
+      FACEBOOK_URL: "https://www.facebook.com/share/18UcQwQxyM/",
+      PAGE_SIZE: 10,
+      MAX_IMAGES: 5,
+      MAX_IMAGE_BYTES: 5 * 1024 * 1024,
+      MAX_COMMENT_LENGTH: 3000,
+      MAX_NAME_LENGTH: 100,
+      REQUEST_TIMEOUT_MS: 30000,
+      UPLOAD_TIMEOUT_MS: 60000,
+      CLIENT_ID_STORAGE_KEY: "service_review_client_id_v1",
+      REQUEST_NAMESPACE: "service_review_request"
+    });
+
+    const RATING_FIELDS = Object.freeze([
+      {
+        key: "ratingService",
+        label: "การบริการ",
+        shortLabel: "การบริการ"
+      },
+      {
+        key: "ratingSpeed",
+        label: "ความรวดเร็ว",
+        shortLabel: "ความรวดเร็ว"
+      },
+      {
+        key: "ratingCare",
+        label: "ความใส่ใจ",
+        shortLabel: "ความใส่ใจ"
+      },
+      {
+        key: "ratingQuality",
+        label: "คุณภาพงาน",
+        shortLabel: "คุณภาพงาน"
+      },
+      {
+        key: "ratingOverall",
+        label: "ความพึงพอใจโดยรวม",
+        shortLabel: "ความพึงพอใจโดยรวม"
+      }
+    ]);
+
+    const state = {
+      services: [],
+      ratings: {
+        ratingService: 0,
+        ratingSpeed: 0,
+        ratingCare: 0,
+        ratingQuality: 0,
+        ratingOverall: 0
+      },
+      selectedFiles: [],
+      privacyAccepted: false,
+      lastReviewId: null,
+      currentPage: 1,
+      totalPages: 1,
+      totalReviews: 0,
+      loadingReviews: false,
+      loadingForm: false,
+      lastFilters: null,
+      pendingNotice: null
+    };
+
+    const $ = (selector, root = document) => root.querySelector(selector);
+    const $$ = (selector, root = document) => Array.from(root.querySelectorAll(selector));
+
+    /* =========================================================
+       GENERAL HELPERS
+       ========================================================= */
+
+    function escapeHtml(value) {
+      return String(value == null ? "" : value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+    }
+
+    function escapeAttribute(value) {
+      return escapeHtml(value);
+    }
+
+    function createRequestId() {
+      if (window.crypto && typeof window.crypto.randomUUID === "function") {
+        return window.crypto.randomUUID();
+      }
+
+      return "req_" + Date.now().toString(36) + "_" +
+        Math.random().toString(36).slice(2, 14);
+    }
+
+    function getClientId() {
+      try {
+        let id = localStorage.getItem(CONFIG.CLIENT_ID_STORAGE_KEY);
+
+        if (!id) {
+          id = createRequestId();
+          localStorage.setItem(CONFIG.CLIENT_ID_STORAGE_KEY, id);
+        }
+
+        return id;
+      } catch (error) {
+        return createRequestId();
+      }
+    }
+
+    function formatNumber(value, decimals = 0) {
+      const number = Number(value);
+
+      if (!Number.isFinite(number)) {
+        return decimals > 0 ? "0.0" : "0";
+      }
+
+      return number.toLocaleString("th-TH", {
+        minimumFractionDigits: decimals,
+        maximumFractionDigits: decimals
+      });
+    }
+
+    function formatPrice(value) {
+      if (value === null || value === undefined || value === "") {
+        return "ไม่ระบุราคา";
+      }
+
+      return "฿" + formatNumber(value, Number(value) % 1 === 0 ? 0 : 2);
+    }
+
+    function formatDate(value) {
+      if (!value) {
+        return "ไม่ระบุวันที่";
+      }
+
+      const date = new Date(value);
+
+      if (Number.isNaN(date.getTime())) {
+        return "ไม่ระบุวันที่";
+      }
+
+      return new Intl.DateTimeFormat("th-TH", {
+        day: "numeric",
+        month: "short",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit"
+      }).format(date);
+    }
+
+    function formatDateShort(value) {
+      if (!value) return "";
+
+      const date = new Date(value);
+
+      if (Number.isNaN(date.getTime())) {
+        return "";
+      }
+
+      return new Intl.DateTimeFormat("th-TH", {
+        day: "numeric",
+        month: "short",
+        year: "numeric"
+      }).format(date);
+    }
+
+    function isValidDateInput(value) {
+      if (!value) return true;
+
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) {
+        return false;
+      }
+
+      const date = new Date(value + "T00:00:00Z");
+
+      return !Number.isNaN(date.getTime()) &&
+        date.toISOString().slice(0, 10) === value;
+    }
+
+    function announceStatus(message) {
+      $("#formStatus").textContent = message;
+    }
+
+    function setConnectionWarning(message) {
+      const warning = $("#connectionWarning");
+
+      if (!message) {
+        warning.classList.remove("is-visible");
+        return;
+      }
+
+      $("#connectionWarningText").textContent = message;
+      warning.classList.add("is-visible");
+    }
+
+    function showToast(title, message, isError = false) {
+      const toast = document.createElement("div");
+      toast.className = "toast" + (isError ? " is-error" : "");
+
+      toast.innerHTML = `
+        <svg class="icon toast-icon">
+          <use href="${isError ? "#i-alert" : "#i-info"}"></use>
+        </svg>
+        <div>
+          <p class="toast-title">${escapeHtml(title)}</p>
+          <p class="toast-message">${escapeHtml(message)}</p>
+        </div>
+      `;
+
+      $("#toastRegion").appendChild(toast);
+
+      window.setTimeout(() => {
+        toast.style.opacity = "0";
+        toast.style.transform = "translateY(-5px)";
+
+        window.setTimeout(() => toast.remove(), 220);
+      }, 4200);
+    }
+
+    function showNotice(title, message, isError = false) {
+      $("#noticeTitle").textContent = title;
+      $("#noticeMessage").textContent = message;
+
+      const icon = $("#noticeIcon");
+      icon.classList.toggle("is-error", isError);
+
+      const useElement = icon.querySelector("use");
+      useElement.setAttribute("href", isError ? "#i-alert" : "#i-info");
+
+      openModal("noticeModal");
+    }
+
+    function iconMarkup(name, classes = "icon") {
+      return `<svg class="${classes}" aria-hidden="true"><use href="#i-${escapeAttribute(name)}"></use></svg>`;
+    }
+
+    /* =========================================================
+       API HELPERS
+       ========================================================= */
+
+    /**
+     * GET API ผ่าน JSONP
+     *
+     * Code.gs รองรับ query parameter callback สำหรับ doGet
+     * จึงใช้ JSONP เพื่อหลีกเลี่ยงปัญหา CORS ของ GET
+     */
+    function apiGet(action, params = {}) {
+      return new Promise((resolve, reject) => {
+        const callbackName =
+          "__reviewJsonp_" +
+          Date.now().toString(36) +
+          "_" +
+          Math.random().toString(36).slice(2, 10);
+
+        const url = new URL(CONFIG.API_URL);
+
+        url.searchParams.set("action", action);
+        url.searchParams.set("callback", callbackName);
+
+        Object.entries(params).forEach(([key, value]) => {
+          if (value !== undefined && value !== null && value !== "") {
+            url.searchParams.set(key, String(value));
+          }
+        });
+
+        const script = document.createElement("script");
+        let settled = false;
+        let timeoutId;
+
+        function cleanup() {
+          window.clearTimeout(timeoutId);
+          script.remove();
+
+          try {
+            delete window[callbackName];
+          } catch (error) {
+            window[callbackName] = undefined;
+          }
+        }
+
+        function finish(callback, value) {
+          if (settled) return;
+          settled = true;
+          cleanup();
+          callback(value);
+        }
+
+        window[callbackName] = (result) => {
+          if (!result || typeof result !== "object") {
+            finish(reject, new Error("รูปแบบข้อมูลจาก API ไม่ถูกต้อง"));
+            return;
+          }
+
+          if (result.success === false) {
+            finish(
+              reject,
+              new Error(
+                result.error && result.error.message
+                  ? result.error.message
+                  : "ไม่สามารถเรียกข้อมูลได้"
+              )
+            );
+            return;
+          }
+
+          finish(resolve, result);
+        };
+
+        script.async = true;
+        script.src = url.toString();
+
+        script.onerror = () => {
+          finish(
+            reject,
+            new Error(
+              "ไม่สามารถเชื่อมต่อ API ได้ โปรดตรวจสอบ URL และการเผยแพร่ Web App"
+            )
+          );
+        };
+
+        timeoutId = window.setTimeout(() => {
+          finish(
+            reject,
+            new Error("เซิร์ฟเวอร์ตอบกลับช้าเกินไป กรุณาลองใหม่")
+          );
+        }, CONFIG.REQUEST_TIMEOUT_MS);
+
+        document.head.appendChild(script);
+      });
+    }
+
+    /**
+     * POST API
+     *
+     * ส่ง JSON เป็น text/plain เพื่อหลีกเลี่ยง CORS preflight
+     * การอ่านคำตอบยังขึ้นอยู่กับการกำหนดค่าและการตอบกลับ
+     * ของ Google Apps Script Web App ด้วย
+     */
+    async function apiPost(action, data = {}) {
+      const controller = new AbortController();
+
+      const timeout = window.setTimeout(() => {
+        controller.abort();
+      }, CONFIG.UPLOAD_TIMEOUT_MS);
+
+      let responseText = "";
+
+      try {
+        const response = await fetch(CONFIG.API_URL, {
+          method: "POST",
+          redirect: "follow",
+          headers: {
+            "Content-Type": "text/plain;charset=UTF-8"
+          },
+          body: JSON.stringify({
+            action,
+            data
+          }),
+          signal: controller.signal
+        });
+
+        responseText = await response.text();
+
+        let result;
+
+        try {
+          result = JSON.parse(responseText);
+        } catch (error) {
+          throw new Error(
+            "API ส่งผลตอบกลับที่ไม่ใช่ JSON กรุณาตรวจสอบ Code.gs และ URL ของ Web App"
+          );
+        }
+
+        if (!response.ok) {
+          throw new Error("เซิร์ฟเวอร์ตอบกลับด้วยสถานะ HTTP " + response.status);
+        }
+
+        if (!result || result.success !== true) {
+          throw new Error(
+            result &&
+            result.error &&
+            result.error.message
+              ? result.error.message
+              : "ดำเนินการไม่สำเร็จ"
+          );
+        }
+
+        return result;
+      } catch (error) {
+        if (error.name === "AbortError") {
+          throw new Error("การเชื่อมต่อใช้เวลานานเกินไป กรุณาตรวจสอบสถานะก่อนส่งซ้ำ");
+        }
+
+        if (
+          error instanceof TypeError ||
+          /Failed to fetch|NetworkError|Load failed/i.test(error.message || "")
+        ) {
+          throw new Error(
+            "เบราว์เซอร์ไม่สามารถอ่านผลตอบกลับจาก Apps Script ได้ กรุณาตรวจสอบการ Deploy, สิทธิ์ Web App และการเชื่อมต่อข้ามโดเมน"
+          );
+        }
+
+        throw error;
+      } finally {
+        window.clearTimeout(timeout);
+      }
+    }
+
+    /* =========================================================
+       MODALS
+       ========================================================= */
+
+    let previouslyFocusedElement = null;
+
+    function openModal(id) {
+      const modal = document.getElementById(id);
+
+      if (!modal) return;
+
+      if (!document.querySelector(".modal:not([hidden])")) {
+        previouslyFocusedElement = document.activeElement;
+      }
+
+      modal.hidden = false;
+      document.body.classList.add("modal-open");
+
+      const focusTarget = modal.querySelector(
+        "button:not(:disabled), input:not(:disabled), [tabindex='0']"
+      );
+
+      if (focusTarget) {
+        window.setTimeout(() => focusTarget.focus(), 30);
+      }
+    }
+
+    function closeModal(id) {
+      const modal = document.getElementById(id);
+
+      if (!modal) return;
+
+      modal.hidden = true;
+
+      if (!document.querySelector(".modal:not([hidden])")) {
+        document.body.classList.remove("modal-open");
+
+        if (
+          previouslyFocusedElement &&
+          typeof previouslyFocusedElement.focus === "function"
+        ) {
+          previouslyFocusedElement.focus();
+        }
+      }
+    }
+
+    function closeAllModals() {
+      $$(".modal").forEach((modal) => {
+        modal.hidden = true;
+      });
+
+      document.body.classList.remove("modal-open");
+    }
+
+    $$(".modal [data-close-modal]").forEach((button) => {
+      button.addEventListener("click", () => {
+        closeModal(button.dataset.closeModal);
+      });
+    });
+
+    $$(".modal").forEach((modal) => {
+      modal.addEventListener("click", (event) => {
+        if (event.target === modal) {
+          if (modal.id === "loadingModal") return;
+
+          if (modal.id === "privacyModal") {
+            closePrivacyWithoutConsent();
+            return;
+          }
+
+          closeModal(modal.id);
+        }
+      });
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        const open = $$(".modal").find((modal) => !modal.hidden);
+
+        if (!open || open.id === "loadingModal") return;
+
+        if (open.id === "privacyModal") {
+          closePrivacyWithoutConsent();
+        } else {
+          closeModal(open.id);
+        }
+      }
+    });
+
+    $("#noticeOkay").addEventListener("click", () => {
+      closeModal("noticeModal");
+    });
+
+    /* =========================================================
+       PRIVACY NOTICE
+       ========================================================= */
+
+    function openPrivacyNotice() {
+      const body = $("#privacyModalBody");
+      const agreeButton = $("#agreePrivacy");
+      const hint = $("#privacyScrollHint");
+
+      agreeButton.disabled = true;
+      body.scrollTop = 0;
+
+      hint.classList.remove("is-complete");
+      hint.innerHTML = `
+        ${iconMarkup("info", "icon icon-sm")}
+        กรุณาเลื่อนลงด้านล่างสุดเพื่อกดยินยอม
+      `;
+
+      openModal("privacyModal");
+
+      window.setTimeout(updatePrivacyScrollState, 80);
+    }
+
+    function updatePrivacyScrollState() {
+      const body = $("#privacyModalBody");
+      const reachedBottom =
+        body.scrollTop + body.clientHeight >= body.scrollHeight - 8;
+
+      $("#agreePrivacy").disabled = !reachedBottom;
+
+      if (reachedBottom) {
+        const hint = $("#privacyScrollHint");
+
+        hint.classList.add("is-complete");
+        hint.innerHTML = `
+          ${iconMarkup("check-circle", "icon icon-sm")}
+          อ่านประกาศครบแล้ว สามารถกดยินยอมได้
+        `;
+      }
+    }
+
+    function closePrivacyWithoutConsent() {
+      closeModal("privacyModal");
+
+      // การปิดหน้าต่างจะไม่ถือว่ายินยอม
+      if (!state.privacyAccepted) {
+        $("#privacyAcknowledgement").checked = false;
+      }
+
+      updateSubmitButton();
+    }
+
+    $("#openPrivacyNotice").addEventListener("click", openPrivacyNotice);
+    $("#footerPrivacyLink").addEventListener("click", openPrivacyNotice);
+    $("#cancelPrivacy").addEventListener("click", closePrivacyWithoutConsent);
+
+    $("#privacyModalBody").addEventListener("scroll", updatePrivacyScrollState);
+
+    $("#agreePrivacy").addEventListener("click", () => {
+      if ($("#agreePrivacy").disabled) return;
+
+      state.privacyAccepted = true;
+      $("#privacyAcknowledgement").checked = true;
+
+      closeModal("privacyModal");
+      updateSubmitButton();
+
+      showToast(
+        "รับทราบประกาศแล้ว",
+        "โปรดตรวจสอบและเลือกการยินยอมรายการอื่นให้ครบ"
+      );
+    });
+
+    $("#privacyAcknowledgement").addEventListener("click", (event) => {
+      if (!state.privacyAccepted) {
+        event.preventDefault();
+        openPrivacyNotice();
+      }
+    });
+
+    $("#privacyAcknowledgement").addEventListener("change", () => {
+      if (!$("#privacyAcknowledgement").checked) {
+        state.privacyAccepted = false;
+      }
+
+      updateSubmitButton();
+    });
+
+    /* =========================================================
+       RATING INPUTS
+       ========================================================= */
+
+    function initialiseRatings() {
+      $$(".star-picker").forEach((group) => {
+        const field = group.dataset.ratingGroup;
+
+        group.innerHTML = `
+          ${[1, 2, 3, 4, 5].map((value) => `
+            <button
+              class="star-button"
+              type="button"
+              data-rating-field="${escapeAttribute(field)}"
+              data-rating-value="${value}"
+              aria-label="ให้ ${value} ดาว"
+              aria-pressed="false"
+              title="${value} ดาว"
+            >
+              <svg class="icon"><use href="#i-star"></use></svg>
+            </button>
+          `).join("")}
+          <span class="rating-value" id="value-${escapeAttribute(field)}">—</span>
+        `;
+
+        group.querySelectorAll(".star-button").forEach((button) => {
+          button.addEventListener("click", () => {
+            const ratingField = button.dataset.ratingField;
+            const ratingValue = Number(button.dataset.ratingValue);
+
+            state.ratings[ratingField] = ratingValue;
+            renderRatingGroup(ratingField);
+            updateSubmitButton();
+          });
+        });
+      });
+    }
+
+    function renderRatingGroup(field) {
+      const group = document.querySelector(
+        `[data-rating-group="${field}"]`
+      );
+
+      if (!group) return;
+
+      const current = Number(state.ratings[field] || 0);
+
+      group.querySelectorAll(".star-button").forEach((button) => {
+        const value = Number(button.dataset.ratingValue);
+        const selected = value <= current;
+
+        button.classList.toggle("selected", selected);
+        button.setAttribute("aria-pressed", String(value === current));
+      });
+
+      const display = document.getElementById("value-" + field);
+
+      if (display) {
+        display.textContent = current ? current + "/5" : "—";
+        display.classList.toggle("is-rated", current > 0);
+      }
+    }
+
+    function resetRatings() {
+      RATING_FIELDS.forEach(({key}) => {
+        state.ratings[key] = 0;
+        renderRatingGroup(key);
+      });
+    }
+
+    /* =========================================================
+       FORM VALIDATION AND INTERACTIONS
+       ========================================================= */
+
+    function validateForm(showMessage = false) {
+      const name = $("#displayName").value.trim();
+      const anonymous = $("#isAnonymous").checked;
+      const serviceId = $("#serviceId").value;
+      const hiddenPrice = $("#isPriceHidden").checked;
+      const priceValue = $("#price").value.trim();
+
+      if (!anonymous && !name) {
+        if (showMessage) {
+          showNotice(
+            "กรุณาระบุชื่อ",
+            "กรุณากรอกชื่อ-สกุลหรือชื่อเล่น หรือเลือกไม่ระบุตัวตน",
+            true
+          );
+          $("#displayName").focus();
+        }
+        return false;
+      }
+
+      if (name.length > CONFIG.MAX_NAME_LENGTH) {
+        if (showMessage) {
+          showNotice("ชื่อยาวเกินไป", "ชื่อหรือชื่อเล่นต้องไม่เกิน 100 ตัวอักษร", true);
+        }
+        return false;
+      }
+
+      if (!serviceId) {
+        if (showMessage) {
+          showNotice("กรุณาเลือกบริการ", "โปรดเลือกบริการที่คุณใช้จากรายการ", true);
+          $("#serviceId").focus();
+        }
+        return false;
+      }
+
+      if (!hiddenPrice) {
+        if (priceValue === "") {
+          if (showMessage) {
+            showNotice("กรุณาระบุราคา", "กรอกราคาที่ใช้บริการ หรือเลือกไม่ระบุราคา", true);
+            $("#price").focus();
+          }
+          return false;
+        }
+
+        const price = Number(priceValue);
+
+        if (!Number.isFinite(price) || price < 0 || price > 1000000000) {
+          if (showMessage) {
+            showNotice("ราคาไม่ถูกต้อง", "โปรดระบุราคาเป็นจำนวนเงินที่ถูกต้อง", true);
+            $("#price").focus();
+          }
+          return false;
+        }
+      }
+
+      const missingRating = RATING_FIELDS.find(({key}) => {
+        const value = Number(state.ratings[key] || 0);
+        return value < 1 || value > 5;
+      });
+
+      if (missingRating) {
+        if (showMessage) {
+          showNotice(
+            "ให้คะแนนไม่ครบ",
+            "กรุณาเลือกดาวในหัวข้อ \"" + missingRating.label + "\" ก่อนส่งรีวิว",
+            true
+          );
+
+          const first = document.querySelector(
+            `[data-rating-group="${missingRating.key}"] .star-button`
+          );
+
+          if (first) {
+            first.focus();
+          }
+        }
+
+        return false;
+      }
+
+      if (!state.privacyAccepted || !$("#privacyAcknowledgement").checked) {
+        if (showMessage) {
+          showNotice(
+            "กรุณาอ่านประกาศความเป็นส่วนตัว",
+            "เปิดประกาศ อ่านจนถึงด้านล่างสุด และกดยินยอมก่อนส่งรีวิว",
+            true
+          );
+        }
+
+        return false;
+      }
+
+      if (!$("#publishConsent").checked) {
+        if (showMessage) {
+          showNotice(
+            "กรุณายืนยันการเผยแพร่",
+            "โปรดยืนยันว่าคุณยินยอมให้เผยแพร่คะแนนและความคิดเห็นต่อสาธารณะ",
+            true
+          );
+        }
+
+        return false;
+      }
+
+      if (!$("#accuracyConsent").checked) {
+        if (showMessage) {
+          showNotice(
+            "กรุณายืนยันความถูกต้อง",
+            "โปรดรับรองว่าคะแนนและความคิดเห็นเป็นไปตามประสบการณ์ของคุณ",
+            true
+          );
+        }
+
+        return false;
+      }
+
+      if (state.selectedFiles.length > CONFIG.MAX_IMAGES) {
+        if (showMessage) {
+          showNotice(
+            "แนบรูปเกินจำนวน",
+            "แนบรูปภาพได้ไม่เกิน " + CONFIG.MAX_IMAGES + " รูป",
+            true
+          );
+        }
+
+        return false;
+      }
+
+      return true;
+    }
+
+    function updateSubmitButton() {
+      const button = $("#submitButton");
+
+      const valid = validateForm(false) &&
+        !state.loadingForm;
+
+      button.disabled = !valid;
+
+      if (valid) {
+        announceStatus("ข้อมูลครบแล้ว สามารถส่งรีวิวได้");
+      } else if (state.loadingForm) {
+        announceStatus("กำลังส่งข้อมูล กรุณารอสักครู่");
+      } else {
+        announceStatus("กรุณากรอกข้อมูล ให้คะแนน และยืนยันให้ครบก่อนส่งรีวิว");
+      }
+    }
+
+    $("#isAnonymous").addEventListener("change", () => {
+      const anonymous = $("#isAnonymous").checked;
+      const name = $("#displayName");
+
+      name.disabled = anonymous;
+
+      if (anonymous) {
+        name.value = "";
+        name.placeholder = "เลือกไม่ระบุตัวตนแล้ว";
+      } else {
+        name.placeholder = "กรอกชื่อ-สกุล หรือชื่อเล่น";
+      }
+
+      updateSubmitButton();
+    });
+
+    $("#isPriceHidden").addEventListener("change", () => {
+      const hidden = $("#isPriceHidden").checked;
+      const price = $("#price");
+
+      price.disabled = hidden;
+
+      if (hidden) {
+        price.value = "";
+        price.placeholder = "เลือกไม่ระบุราคาแล้ว";
+      } else {
+        price.placeholder = "ระบุราคา เช่น 100";
+      }
+
+      updateSubmitButton();
+    });
+
+    [
+      "#displayName",
+      "#serviceId",
+      "#price",
+      "#publishConsent",
+      "#accuracyConsent"
+    ].forEach((selector) => {
+      $(selector).addEventListener("input", updateSubmitButton);
+      $(selector).addEventListener("change", updateSubmitButton);
+    });
+
+    $("#comment").addEventListener("input", () => {
+      $("#commentCount").textContent =
+        $("#comment").value.length + "/" + CONFIG.MAX_COMMENT_LENGTH;
+    });
+
+    /* =========================================================
+       IMAGE PICKER, VALIDATION AND PREVIEWS
+       ========================================================= */
+
+    function validateImageFile(file) {
+      const supported = [
+        "image/jpeg",
+        "image/png",
+        "image/webp",
+        "image/gif"
+      ];
+
+      if (!supported.includes(file.type)) {
+        return "ไฟล์ " + file.name + " ไม่ใช่รูปภาพชนิดที่รองรับ";
+      }
+
+      if (file.size <= 0) {
+        return "ไฟล์ " + file.name + " ไม่มีข้อมูล";
+      }
+
+      if (file.size > CONFIG.MAX_IMAGE_BYTES) {
+        return "ไฟล์ " + file.name + " มีขนาดเกิน 5 MB";
+      }
+
+      return "";
+    }
+
+    function renderImagePreviews() {
+      const grid = $("#previewGrid");
+      grid.innerHTML = "";
+
+      state.selectedFiles.forEach((file, index) => {
+        const url = URL.createObjectURL(file);
+        const item = document.createElement("div");
+
+        item.className = "preview-item";
+        item.innerHTML = `
+          <img src="${url}" alt="ตัวอย่างรูปภาพ ${index + 1}">
+          <button
+            type="button"
+            class="preview-remove"
+            data-remove-file="${index}"
+            aria-label="นำรูป ${escapeAttribute(file.name)} ออก"
+          >
+            ${iconMarkup("x")}
+          </button>
+          <span class="preview-name">${escapeHtml(file.name)}</span>
+        `;
+
+        const image = item.querySelector("img");
+        image.addEventListener("load", () => URL.revokeObjectURL(url), {once: true});
+        image.addEventListener("error", () => URL.revokeObjectURL(url), {once: true});
+
+        grid.appendChild(item);
+      });
+
+      $("#imageHelp").textContent = state.selectedFiles.length
+        ? "เลือกแล้ว " + state.selectedFiles.length + "/" +
+          CONFIG.MAX_IMAGES + " รูป · ระบบจะอัปโหลดเมื่อกดส่งรีวิว"
+        : "รูปภาพจะอัปโหลดไปยัง ImgBB เมื่อกดส่งรีวิว";
+
+      updateSubmitButton();
+    }
+
+    $("#imageInput").addEventListener("change", (event) => {
+      const files = Array.from(event.target.files || []);
+      const accepted = [];
+      const errors = [];
+
+      for (const file of files) {
+        const validationError = validateImageFile(file);
+
+        if (validationError) {
+          errors.push(validationError);
+          continue;
+        }
+
+        accepted.push(file);
+      }
+
+      if (accepted.length > CONFIG.MAX_IMAGES) {
+        errors.push("เลือกได้ไม่เกิน " + CONFIG.MAX_IMAGES + " รูป");
+        accepted.length = 0;
+      }
+
+      if (errors.length) {
+        showNotice(
+          "ตรวจสอบไฟล์รูปภาพ",
+          errors.join("\n"),
+          true
+        );
+      }
+
+      state.selectedFiles = accepted;
+      renderImagePreviews();
+
+      // อนุญาตให้เลือกไฟล์เดิมซ้ำได้หลังเคลียร์รายการ
+      event.target.value = "";
+    });
+
+    $("#previewGrid").addEventListener("click", (event) => {
+      const button = event.target.closest("[data-remove-file]");
+
+      if (!button) return;
+
+      const index = Number(button.dataset.removeFile);
+
+      if (!Number.isInteger(index)) return;
+
+      state.selectedFiles.splice(index, 1);
+      renderImagePreviews();
+    });
+
+    const uploadZone = $("#uploadZone");
+
+    ["dragenter", "dragover"].forEach((eventName) => {
+      uploadZone.addEventListener(eventName, (event) => {
+        event.preventDefault();
+        uploadZone.classList.add("drag-over");
+      });
+    });
+
+    ["dragleave", "drop"].forEach((eventName) => {
+      uploadZone.addEventListener(eventName, (event) => {
+        event.preventDefault();
+        uploadZone.classList.remove("drag-over");
+      });
+    });
+
+    uploadZone.addEventListener("drop", (event) => {
+      const files = Array.from(event.dataTransfer.files || []);
+      const accepted = [];
+      const errors = [];
+
+      for (const file of files) {
+        const error = validateImageFile(file);
+
+        if (error) {
+          errors.push(error);
+        } else {
+          accepted.push(file);
+        }
+      }
+
+      if (accepted.length > CONFIG.MAX_IMAGES) {
+        errors.push("เลือกได้ไม่เกิน " + CONFIG.MAX_IMAGES + " รูป");
+        accepted.length = 0;
+      }
+
+      if (errors.length) {
+        showNotice("ตรวจสอบไฟล์รูปภาพ", errors.join("\n"), true);
+      }
+
+      state.selectedFiles = accepted;
+      renderImagePreviews();
+    });
+
+    /* =========================================================
+       UPLOAD IMAGES TO IMGBB
+       ========================================================= */
+
+    function fileToBase64(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+
+        reader.onload = () => {
+          const value = String(reader.result || "");
+          const comma = value.indexOf(",");
+
+          if (comma < 0) {
+            reject(new Error("ไม่สามารถอ่านรูปภาพได้"));
+            return;
+          }
+
+          resolve(value.substring(comma + 1));
+        };
+
+        reader.onerror = () => {
+          reject(new Error("เกิดข้อผิดพลาดขณะอ่านไฟล์ " + file.name));
+        };
+
+        reader.onabort = () => {
+          reject(new Error("การอ่านไฟล์ถูกยกเลิก"));
+        };
+
+        reader.readAsDataURL(file);
+      });
+    }
+
+    async function uploadOneImage(file, index, total) {
+      $("#loadingTitle").textContent = "กำลังอัปโหลดรูปภาพ";
+      $("#loadingDescription").textContent =
+        "กำลังอัปโหลดรูปที่ " + index + " จาก " + total +
+        " ไปยังระบบจัดเก็บรูปภาพ";
+
+      const base64 = await fileToBase64(file);
+
+      const result = await apiPost("uploadImage", {
+        clientId: getClientId(),
+        fileName: file.name,
+        mimeType: file.type,
+        imageBase64: base64
+      });
+
+      const image = result.data || {};
+      const imageUrl = image.imageUrl || image.displayUrl;
+
+      if (!imageUrl || !/^https:\/\/(?:i\.ibb\.co|ibb\.co|www\.ibb\.co)\//i.test(imageUrl)) {
+        throw new Error("ได้รับ URL รูปภาพที่ไม่ถูกต้องจากบริการอัปโหลด");
+      }
+
+      return imageUrl;
+    }
+
+    async function uploadSelectedImages() {
+      const urls = [];
+      const files = state.selectedFiles.slice();
+
+      for (let index = 0; index < files.length; index++) {
+        const url = await uploadOneImage(
+          files[index],
+          index + 1,
+          files.length
+        );
+
+        urls.push(url);
+      }
+
+      return urls;
+    }
+
+    /* =========================================================
+       SUBMIT REVIEW
+       ========================================================= */
+
+    function setFormBusy(busy) {
+      state.loadingForm = busy;
+
+      const button = $("#submitButton");
+
+      button.disabled = true;
+      button.innerHTML = busy
+        ? `${iconMarkup("loader", "icon")} <span>กำลังส่งรีวิว</span>`
+        : `${iconMarkup("send", "icon")} <span>ส่งรีวิว</span>`;
+
+      updateSubmitButton();
+    }
+
+    function resetReviewForm() {
+      $("#reviewForm").reset();
+
+      state.selectedFiles = [];
+      state.privacyAccepted = false;
+      state.ratings = {
+        ratingService: 0,
+        ratingSpeed: 0,
+        ratingCare: 0,
+        ratingQuality: 0,
+        ratingOverall: 0
+      };
+
+      $("#displayName").disabled = false;
+      $("#displayName").placeholder = "กรอกชื่อ-สกุล หรือชื่อเล่น";
+      $("#price").disabled = false;
+      $("#price").placeholder = "ระบุราคา เช่น 100";
+
+      $("#commentCount").textContent = "0/" + CONFIG.MAX_COMMENT_LENGTH;
+
+      renderImagePreviews();
+      resetRatings();
+      updateSubmitButton();
+    }
+
+    $("#reviewForm").addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      if (state.loadingForm) return;
+
+      if (!validateForm(true)) {
+        updateSubmitButton();
+        return;
+      }
+
+      state.loadingForm = true;
+      $("#submitButton").disabled = true;
+      openModal("loadingModal");
+
+      try {
+        let imageUrls = [];
+
+        if (state.selectedFiles.length > 0) {
+          imageUrls = await uploadSelectedImages();
+        }
+
+        $("#loadingTitle").textContent = "กำลังส่งรีวิว";
+        $("#loadingDescription").textContent =
+          "กำลังบันทึกคะแนนและความคิดเห็น กรุณารอสักครู่";
+
+        const requestId = createRequestId();
+        const anonymous = $("#isAnonymous").checked;
+        const hiddenPrice = $("#isPriceHidden").checked;
+
+        const payload = {
+          clientId: getClientId(),
+          clientRequestId: requestId,
+
+          displayName: anonymous
+            ? "ไม่ระบุตัวตน"
+            : $("#displayName").value.trim(),
+
+          isAnonymous: anonymous,
+
+          serviceId: $("#serviceId").value,
+
+          price: hiddenPrice
+            ? ""
+            : Number($("#price").value),
+
+          isPriceHidden: hiddenPrice,
+
+          imageUrls: imageUrls,
+
+          ratingService: state.ratings.ratingService,
+          ratingSpeed: state.ratings.ratingSpeed,
+          ratingCare: state.ratings.ratingCare,
+          ratingQuality: state.ratings.ratingQuality,
+          ratingOverall: state.ratings.ratingOverall,
+
+          comment: $("#comment").value.trim(),
+
+          privacyNoticeAcknowledged: state.privacyAccepted,
+          publishConsent: $("#publishConsent").checked,
+
+          // ข้อความรับรองนี้บังคับในหน้าเว็บ
+          // หากต้องการบังคับตรวจสอบฝั่งเซิร์ฟเวอร์ด้วย
+          // ต้องเพิ่มการตรวจสอบใน Code.gs ให้ตรงกัน
+          reviewAccuracyConfirmed: $("#accuracyConsent").checked
+        };
+
+        const result = await apiPost("submitReview", payload);
+        const savedReview = result.data && result.data.review;
+
+        if (!savedReview || !savedReview.reviewId) {
+          throw new Error(
+            "เซิร์ฟเวอร์ตอบกลับ แต่ไม่พบข้อมูลรีวิวที่บันทึก กรุณาตรวจสอบข้อมูลก่อนส่งซ้ำ"
+          );
+        }
+
+        state.lastReviewId = savedReview.reviewId;
+
+        closeModal("loadingModal");
+        resetReviewForm();
+
+        // อัปเดตจำนวนและคะแนนเบื้องต้นหลังส่งสำเร็จ
+        showSuccessModal();
+
+      } catch (error) {
+        console.error("Submit review error:", error);
+
+        closeModal("loadingModal");
+        state.loadingForm = false;
+        updateSubmitButton();
+
+        showNotice(
+          "ส่งรีวิวไม่สำเร็จ",
+          error.message ||
+            "เกิดข้อผิดพลาดระหว่างส่งข้อมูล กรุณาลองอีกครั้ง",
+          true
+        );
+      } finally {
+        state.loadingForm = false;
+        updateSubmitButton();
+      }
+    });
+
+    function showSuccessModal() {
+      const circle = $(".success-circle-bg");
+      const check = $(".success-check");
+
+      // เริ่มแอนิเมชันใหม่ทุกครั้งที่เปิดหน้าต่างสำเร็จ
+      [circle, check].forEach((element) => {
+        element.style.animation = "none";
+        void element.offsetWidth;
+        element.style.animation = "";
+      });
+
+      openModal("successModal");
+    }
+
+    $("#closeSuccess").addEventListener("click", () => {
+      closeModal("successModal");
+    });
+
+    $("#viewNewReview").addEventListener("click", async () => {
+      closeModal("successModal");
+
+      // ล้างตัวกรองเพื่อให้รีวิวล่าสุดปรากฏอยู่บนหน้าแรกของรายการ
+      $("#filterSearch").value = "";
+      $("#filterService").value = "";
+      $("#filterRating").value = "";
+      $("#filterDateFrom").value = "";
+      $("#filterDateTo").value = "";
+      $("#filterSort").value = "newest";
+
+      state.currentPage = 1;
+
+      await loadReviews({
+        scrollToReviewId: state.lastReviewId
+      });
+
+      $("#reviewsSection").scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    });
+
+    /* =========================================================
+       SERVICES
+       ========================================================= */
+
+    function populateServiceSelects(services) {
+      const serviceSelect = $("#serviceId");
+      const filterService = $("#filterService");
+
+      const oldService = serviceSelect.value;
+      const oldFilter = filterService.value;
+
+      serviceSelect.innerHTML =
+        `<option value="">เลือกบริการที่ใช้</option>` +
+        services.map((service) => `
+          <option value="${escapeAttribute(service.serviceId)}">
+            ${escapeHtml(service.serviceName)}
+          </option>
+        `).join("");
+
+      filterService.innerHTML =
+        `<option value="">ทุกบริการ</option>` +
+        services.map((service) => `
+          <option value="${escapeAttribute(service.serviceId)}">
+            ${escapeHtml(service.serviceName)}
+          </option>
+        `).join("");
+
+      if (services.some((service) => service.serviceId === oldService)) {
+        serviceSelect.value = oldService;
+      }
+
+      if (services.some((service) => service.serviceId === oldFilter)) {
+        filterService.value = oldFilter;
+      }
+
+      $("#summaryServices").textContent = formatNumber(services.length);
+      updateSubmitButton();
+    }
+
+    /* =========================================================
+       RATINGS RENDERING
+       ========================================================= */
+
+    function renderStars(value) {
+      const rating = Math.max(0, Math.min(5, Number(value) || 0));
+
+      return `
+        <span class="review-star-strip" aria-label="${rating} จาก 5 ดาว">
+          ${[1, 2, 3, 4, 5].map((number) => `
+            <svg class="icon" style="${number > rating ? "fill:transparent;stroke:#d4dbe5" : ""}">
+              <use href="#i-star"></use>
+            </svg>
+          `).join("")}
+        </span>
+      `;
+    }
+
+    function renderMiniStars(value) {
+      const rating = Math.max(0, Math.min(5, Number(value) || 0));
+
+      return `
+        <span class="mini-rating-stars" aria-label="${rating} จาก 5 ดาว">
+          ${[1, 2, 3, 4, 5].map((number) => `
+            <svg class="icon ${number <= rating ? "filled" : ""}">
+              <use href="#i-star"></use>
+            </svg>
+          `).join("")}
+        </span>
+      `;
+    }
+
+    function normaliseReviewRatings(review) {
+      const ratings = review.ratings || {};
+
+      return {
+        service: Number(ratings.service ?? review.ratingService ?? 0),
+        speed: Number(ratings.speed ?? review.ratingSpeed ?? 0),
+        care: Number(ratings.care ?? review.ratingCare ?? 0),
+        quality: Number(ratings.quality ?? review.ratingQuality ?? 0),
+        overall: Number(
+          ratings.overall ??
+          review.ratingOverall ??
+          0
+        )
+      };
+    }
+
+    function renderReviewCategoryRatings(review) {
+      const ratings = normaliseReviewRatings(review);
+
+      const categories = [
+        ["การบริการ", ratings.service],
+        ["ความรวดเร็ว", ratings.speed],
+        ["ความใส่ใจ", ratings.care],
+        ["คุณภาพงาน", ratings.quality],
+        ["ความพึงพอใจโดยรวม", ratings.overall]
+      ];
+
+      return `
+        <div class="review-category-ratings">
+          ${categories.map(([label, value]) => `
+            <div class="mini-rating">
+              <span>${escapeHtml(label)}</span>
+              ${renderMiniStars(value)}
+            </div>
+          `).join("")}
+        </div>
+      `;
+    }
+
+    /* =========================================================
+       PUBLIC REVIEW LIST
+       ========================================================= */
+
+    function currentFilterParameters(page = 1) {
+      return {
+        q: $("#filterSearch").value.trim(),
+        serviceId: $("#filterService").value,
+        rating: $("#filterRating").value,
+        dateFrom: $("#filterDateFrom").value,
+        dateTo: $("#filterDateTo").value,
+        sort: $("#filterSort").value,
+        page,
+        pageSize: CONFIG.PAGE_SIZE
+      };
+    }
+
+    function validateFilters() {
+      const from = $("#filterDateFrom").value;
+      const to = $("#filterDateTo").value;
+
+      if (!isValidDateInput(from) || !isValidDateInput(to)) {
+        showNotice(
+          "รูปแบบวันที่ไม่ถูกต้อง",
+          "กรุณาตรวจสอบวันที่เริ่มต้นและวันที่สิ้นสุด",
+          true
+        );
+        return false;
+      }
+
+      if (from && to && from > to) {
+        showNotice(
+          "ช่วงวันที่ไม่ถูกต้อง",
+          "วันที่เริ่มต้นต้องไม่อยู่หลังวันที่สิ้นสุด",
+          true
+        );
+        return false;
+      }
+
+      return true;
+    }
+
+    async function loadReviews(options = {}) {
+      if (state.loadingReviews) return;
+
+      if (!validateFilters()) return;
+
+      state.loadingReviews = true;
+
+      const page = options.page || 1;
+      state.currentPage = page;
+
+      const reviewList = $("#reviewList");
+      const pagination = $("#pagination");
+
+      reviewList.innerHTML = `
+        <div class="state-panel">
+          <div class="small-spinner"></div>
+          <h3 class="state-title">กำลังโหลดรีวิว</h3>
+          <p class="state-description">กำลังเรียกข้อมูลล่าสุดจากระบบ</p>
+        </div>
+      `;
+
+      pagination.hidden = true;
+
+      try {
+        const params = currentFilterParameters(page);
+        const result = await apiGet("listReviews", params);
+        const data = result.data || {};
+
+        const items = Array.isArray(data.items) ? data.items : [];
+
+        state.totalReviews = Number(data.totalItems || 0);
+        state.totalPages = Number(data.totalPages || 1);
+        state.currentPage = Number(data.page || page);
+        state.lastFilters = params;
+
+        renderReviewList(items, data);
+
+        $("#reviewCountBadge").textContent =
+          formatNumber(state.totalReviews) + " รีวิว";
+
+        const filterParts = [];
+
+        if (params.q) filterParts.push("คำค้น: " + params.q);
+
+        const selectedService = state.services.find(
+          (service) => service.serviceId === params.serviceId
+        );
+
+        if (selectedService) {
+          filterParts.push("บริการ: " + selectedService.serviceName);
+        }
+
+        if (params.rating) filterParts.push(params.rating + " ดาว");
+
+        if (params.dateFrom || params.dateTo) {
+          filterParts.push(
+            "ช่วงวันที่ " +
+            (params.dateFrom || "ไม่จำกัด") +
+            " – " +
+            (params.dateTo || "ไม่จำกัด")
+          );
+        }
+
+        $("#filterStatus").textContent = filterParts.length
+          ? "พบ " + formatNumber(state.totalReviews) + " รายการ · " + filterParts.join(" · ")
+          : "แสดงรีวิว " + formatNumber(items.length) +
+            " รายการ จากทั้งหมด " + formatNumber(state.totalReviews) + " รายการ";
+
+        pagination.hidden = state.totalPages <= 1;
+
+        $("#pageIndicator").textContent =
+          "หน้า " + state.currentPage + " / " + state.totalPages;
+
+        $("#previousPage").disabled = state.currentPage <= 1;
+        $("#nextPage").disabled = state.currentPage >= state.totalPages;
+
+        if (options.scrollToReviewId) {
+          window.setTimeout(() => {
+            const target = document.getElementById(
+              "review-" + options.scrollToReviewId
+            );
+
+            if (target) {
+              target.scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+              });
+
+              target.classList.add("is-highlighted");
+            } else {
+              showToast(
+                "ส่งรีวิวสำเร็จ",
+                "บันทึกแล้ว แต่ไม่พบรายการในหน้าที่แสดงอยู่"
+              );
+            }
+          }, 100);
+        }
+      } catch (error) {
+        console.error("Load reviews error:", error);
+
+        reviewList.innerHTML = `
+          <div class="state-panel">
+            <div class="state-icon">
+              ${iconMarkup("alert", "icon icon-xl")}
+            </div>
+            <h3 class="state-title">ไม่สามารถโหลดรีวิวได้</h3>
+            <p class="state-description">
+              ${escapeHtml(error.message || "เกิดข้อผิดพลาดขณะโหลดข้อมูล")}
+            </p>
+            <button class="button button-secondary" type="button" id="retryLoadReviews" style="margin-top:14px">
+              ${iconMarkup("refresh", "icon icon-sm")}
+              ลองโหลดอีกครั้ง
+            </button>
+          </div>
+        `;
+
+        $("#retryLoadReviews").addEventListener("click", () => {
+          loadReviews({page: state.currentPage});
+        });
+
+        $("#filterStatus").textContent = "ไม่สามารถโหลดข้อมูลรีวิว";
+      } finally {
+        state.loadingReviews = false;
+      }
+    }
+
+    function renderReviewList(items, data) {
+      const list = $("#reviewList");
+
+      if (!items.length) {
+        list.innerHTML = `
+          <div class="state-panel">
+            <div class="state-icon">
+              ${iconMarkup("search", "icon icon-xl")}
+            </div>
+            <h3 class="state-title">ไม่พบข้อมูล</h3>
+            <p class="state-description">
+              ไม่พบรีวิวที่ตรงกับเงื่อนไขค้นหาของคุณ ลองเปลี่ยนคำค้นหาหรือปรับตัวกรอง
+            </p>
+            <button type="button" class="button button-secondary" id="emptyClearFilters" style="margin-top:14px">
+              ${iconMarkup("filter-x", "icon icon-sm")}
+              ล้างตัวกรอง
+            </button>
+          </div>
+        `;
+
+        $("#emptyClearFilters").addEventListener("click", clearAllFilters);
+        return;
+      }
+
+      list.innerHTML = items.map((review) => {
+        const reviewId = String(review.reviewId || "");
+        const ratings = normaliseReviewRatings(review);
+        const images = Array.isArray(review.imageUrls) ? review.imageUrls : [];
+
+        const displayName = review.isAnonymous
+          ? "ไม่ระบุตัวตน"
+          : (review.displayName || "ลูกค้าทั่วไป");
+
+        const safeReviewId = escapeAttribute(reviewId);
+
+        return `
+          <article
+            class="review-card"
+            id="review-${safeReviewId}"
+            data-review-id="${safeReviewId}"
+          >
+            <div class="review-top">
+              <div class="review-avatar">
+                <svg class="icon icon-lg">
+                  <use href="${review.isAnonymous ? "#i-user" : "#i-users"}"></use>
+                </svg>
+              </div>
+
+              <div class="review-main">
+                <div class="review-name-row">
+                  <span class="review-name">${escapeHtml(displayName)}</span>
+                  <span class="verified-tag">
+                    ${iconMarkup("check-circle", "icon icon-sm")}
+                    รีวิวที่เผยแพร่
+                  </span>
+                </div>
+
+                <div class="review-date">
+                  ${escapeHtml(formatDate(review.createdAt))}
+                </div>
+
+                <span class="review-service">
+                  ${iconMarkup("tag", "icon icon-sm")}
+                  ${escapeHtml(review.serviceName || "ไม่ระบุบริการ")}
+                </span>
+
+                <div class="review-price">
+                  ราคาที่ใช้บริการ:
+                  <strong>${
+                    review.isPriceHidden || review.price === null
+                      ? "ไม่ระบุราคา"
+                      : escapeHtml(formatPrice(review.price))
+                  }</strong>
+                </div>
+              </div>
+            </div>
+
+            <div class="review-rating-summary">
+              ${renderStars(ratings.overall)}
+              <span class="review-score">${formatNumber(ratings.overall, 0)}.0 / 5</span>
+            </div>
+
+            ${renderReviewCategoryRatings(review)}
+
+            ${
+              review.comment
+                ? `<p class="review-comment">${escapeHtml(review.comment)}</p>`
+                : `<p class="review-empty-comment">ผู้รีวิวไม่ได้แสดงความคิดเห็นเพิ่มเติม</p>`
+            }
+
+            ${
+              images.length
+                ? `
+                  <div class="review-images">
+                    ${images.map((url, index) => `
+                      <button
+                        class="review-image-button"
+                        type="button"
+                        data-lightbox-src="${escapeAttribute(url)}"
+                        aria-label="เปิดดูรูปภาพ ${index + 1}"
+                      >
+                        <img
+                          src="${escapeAttribute(url)}"
+                          alt="รูปภาพประกอบรีวิว ${index + 1}"
+                          loading="lazy"
+                          referrerpolicy="no-referrer"
+                        >
+                      </button>
+                    `).join("")}
+                  </div>
+                `
+                : ""
+            }
+          </article>
+        `;
+      }).join("");
+    }
+
+    /* =========================================================
+       IMAGE LIGHTBOX
+       ========================================================= */
+
+    $("#reviewList").addEventListener("click", (event) => {
+      const button = event.target.closest("[data-lightbox-src]");
+
+      if (!button) return;
+
+      const src = button.dataset.lightboxSrc;
+
+      if (!src) return;
+
+      $("#lightboxImage").src = src;
+      openModal("lightboxModal");
+    });
+
+    $("#lightboxImage").addEventListener("error", () => {
+      showToast(
+        "ไม่สามารถแสดงรูปภาพได้",
+        "รูปภาพอาจถูกย้าย ลบ หรือไม่สามารถเข้าถึงได้"
+      );
+    });
+
+    $("#lightboxImage").addEventListener("load", () => {
+      $("#lightboxImage").alt = "รูปภาพประกอบรีวิว";
+    });
+
+    /* =========================================================
+       FILTERS AND PAGINATION
+       ========================================================= */
+
+    $("#applyFilters").addEventListener("click", () => {
+      state.currentPage = 1;
+      loadReviews({page: 1});
+    });
+
+    $("#filterSearch").addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        state.currentPage = 1;
+        loadReviews({page: 1});
+      }
+    });
+
+    $("#filterSort").addEventListener("change", () => {
+      state.currentPage = 1;
+      loadReviews({page: 1});
+    });
+
+    $("#clearFilters").addEventListener("click", clearAllFilters);
+
+    $("#refreshReviews").addEventListener("click", () => {
+      loadReviews({page: state.currentPage});
+    });
+
+    $("#previousPage").addEventListener("click", () => {
+      if (state.currentPage > 1) {
+        loadReviews({page: state.currentPage - 1});
+      }
+    });
+
+    $("#nextPage").addEventListener("click", () => {
+      if (state.currentPage < state.totalPages) {
+        loadReviews({page: state.currentPage + 1});
+      }
+    });
+
+    function clearAllFilters() {
+      $("#filterSearch").value = "";
+      $("#filterService").value = "";
+      $("#filterRating").value = "";
+      $("#filterDateFrom").value = "";
+      $("#filterDateTo").value = "";
+      $("#filterSort").value = "newest";
+
+      state.currentPage = 1;
+
+      loadReviews({page: 1});
+    }
+
+    /* =========================================================
+       BOOTSTRAP AND SUMMARY
+       ========================================================= */
+
+    async function loadBootstrap() {
+      setConnectionWarning("");
+
+      try {
+        const result = await apiGet("bootstrap");
+        const data = result.data || {};
+
+        const settings = data.settings || {};
+
+        const title = settings.siteTitle || "รีวิวการให้บริการ";
+        const subtitle = settings.siteSubtitle ||
+          "แบ่งปันประสบการณ์และความคิดเห็นของคุณ";
+        const poweredByName = settings.poweredByName || "Ponlabat Chaipakdee";
+        const poweredByUrl = settings.poweredByUrl || CONFIG.FACEBOOK_URL;
+
+        $("#brandTitle").textContent = title;
+        $("#heroTitle").textContent = title;
+        $("#heroDescription").textContent = subtitle;
+        $("#poweredByName").textContent = poweredByName;
+
+        // ตั้ง target URL ให้ตรงกับค่าที่ได้จากฐานข้อมูล
+        // URL ต้องเป็น HTTPS และเปิดในแท็บใหม่
+        try {
+          const parsed = new URL(poweredByUrl);
+
+          if (parsed.protocol === "https:") {
+            $("#poweredByLink").href = parsed.href;
+          }
+        } catch (error) {
+          $("#poweredByLink").href = CONFIG.FACEBOOK_URL;
+        }
+
+        document.title = title;
+
+        state.services = Array.isArray(data.services)
+          ? data.services
+          : [];
+
+        populateServiceSelects(state.services);
+
+        const summary = data.summary || {};
+
+        $("#summaryAverage").textContent =
+          formatNumber(summary.averageOverall || 0, 1);
+
+        $("#summaryCount").textContent =
+          formatNumber(summary.totalReviews || 0);
+
+        $("#summaryServices").textContent =
+          formatNumber(state.services.length);
+
+        // แสดงข้อมูลที่ API ส่งกลับใน bootstrap ก่อน
+        // จากนั้นโหลดรีวิวล่าสุดพร้อมตัวกรองเพื่อใช้ pagination
+        await loadReviews({page: 1});
+
+      } catch (error) {
+        console.error("Bootstrap error:", error);
+
+        setConnectionWarning(
+          error.message ||
+          "ไม่สามารถเชื่อมต่อข้อมูลได้ โปรดตรวจสอบ URL และการ Deploy ของ Apps Script"
+        );
+
+        $("#serviceId").innerHTML =
+          `<option value="">ไม่สามารถโหลดบริการได้</option>`;
+
+        $("#summaryAverage").textContent = "—";
+        $("#summaryCount").textContent = "—";
+        $("#summaryServices").textContent = "—";
+
+        $("#reviewList").innerHTML = `
+          <div class="state-panel">
+            <div class="state-icon">
+              ${iconMarkup("alert", "icon icon-xl")}
+            </div>
+            <h3 class="state-title">ไม่สามารถเชื่อมต่อระบบ</h3>
+            <p class="state-description">
+              ${escapeHtml(error.message || "โปรดลองใหม่อีกครั้ง")}
+            </p>
+            <button class="button button-secondary" type="button" id="retryBootstrap" style="margin-top:14px">
+              ${iconMarkup("refresh", "icon icon-sm")}
+              เชื่อมต่ออีกครั้ง
+            </button>
+          </div>
+        `;
+
+        $("#retryBootstrap").addEventListener("click", loadBootstrap);
+      }
+    }
+
+    $("#retryConnection").addEventListener("click", loadBootstrap);
+
+    /* =========================================================
+       ACCESSIBILITY AND INITIALISATION
+       ========================================================= */
+
+    $("#homeLink").addEventListener("click", (event) => {
+      event.preventDefault();
+
+      $("#home").scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    });
+
+    function initialise() {
+      initialiseRatings();
+      updateSubmitButton();
+      loadBootstrap();
+    }
+
+    initialise();
+  </script>
+</body>
+  </html>
