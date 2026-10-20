@@ -2228,6 +2228,77 @@
     height: 24px;
   }
 }
+    
+/* Compact advanced review filters */
+.filter-advanced {
+  grid-column: 1 / -1;
+  min-width: 0;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #fff;
+  overflow: hidden;
+}
+
+.filter-advanced summary {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 48px;
+  padding: 12px 14px;
+  cursor: pointer;
+  list-style: none;
+  color: #334155;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.filter-advanced summary::-webkit-details-marker {
+  display: none;
+}
+
+.filter-advanced summary::after {
+  content: "+";
+  margin-left: auto;
+  color: #64748b;
+  font-size: 20px;
+}
+
+.filter-advanced[open] summary::after {
+  content: "−";
+}
+
+.filter-advanced-hint {
+  color: #94a3b8;
+  font-size: 11px;
+  font-weight: 400;
+}
+
+.filter-advanced-content {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 13px;
+  padding: 14px;
+  border-top: 1px solid #edf0f5;
+}
+
+.filter-advanced-content .filter-actions {
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 600px) {
+  .filter-advanced-content {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .filter-advanced-content .filter-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .filter-advanced-hint {
+    margin-left: auto;
+  }
+}
   </style>
 </head>
 
@@ -2790,8 +2861,14 @@
 
           <span class="review-count-badge" id="reviewCountBadge">— รีวิว</span>
         </div>
-
-        <div class="filter-panel">
+        
+          <details class="filter-advanced">
+            <summary>
+              <svg class="icon icon-sm"><use href="#i-filter"></use></svg>
+              ตัวกรองเพิ่มเติม
+              <span class="filter-advanced-hint">บริการ คะแนน และวันที่</span>
+            </summary>
+            <div class="filter-advanced-content">
           <div class="filter-field">
             <label class="filter-label" for="filterSearch">ค้นหารีวิว</label>
             <div class="search-wrap">
@@ -2861,8 +2938,8 @@
               โหลดใหม่
             </button>
           </div>
-        </div>
-
+          </div>
+        </details>
         <div class="filter-status" id="filterStatus" role="status">
           กำลังโหลดรีวิว...
         </div>
