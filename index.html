@@ -2387,6 +2387,8 @@
   cursor: pointer;
   box-shadow: 0 8px 26px rgba(23, 100, 216, 0.32);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  touch-action: none;
+  cursor: grab;
 }
 
 .floating-review-button:active {
@@ -5299,25 +5301,96 @@ if (reviewCountBadge) {
         block: "start"
       });
     });
-    /* Floating review button */
-$("#floatingReviewButton").addEventListener("click", () => {
+    /* Floating review button: drag + click */
+const floatingCta = $("#floatingReviewCta");
+const floatingButton = $("#floatingReviewButton");
+const floatingClose = $("#floatingReviewClose");
+
+let pointerStartX = 0;
+let pointerStartY = 0;
+let initialLeft = 0;
+let initialTop = 0;
+let isDragging = false;
+let suppressNextClick = false;
+let activePointerId = null;
+
+floatingButton.addEventListener("pointerdown", (event) => {
+  if (event.button !== undefined && event.button !== 0) return;
+
+  const rect = floatingCta.getBoundingClientRect();
+
+  pointerStartX = event.clientX;
+  pointerStartY = event.clientY;
+  initialLeft = rect.left;
+  initialTop = rect.top;
+
+  isDragging = false;
+  suppressNextClick = false;
+  activePointerId = event.pointerId;
+
+  floatingButton.setPointerCapture(event.pointerId);
+});
+
+floatingButton.addEventListener("pointermove", (event) => {
+  if (activePointerId !== event.pointerId) return;
+
+  const dx = event.clientX - pointerStartX;
+  const dy = event.clientY - pointerStartY;
+
+  // เริ่มลากเมื่อขยับเกิน 6 พิกเซล
+  if (!isDragging && Math.hypot(dx, dy) > 6) {
+    isDragging = true;
+  }
+
+  if (!isDragging) return;
+
+  const maxLeft = window.innerWidth - floatingCta.offsetWidth;
+  const maxTop = window.innerHeight - floatingCta.offsetHeight;
+
+  const left = Math.max(0, Math.min(maxLeft, initialLeft + dx));
+  const top = Math.max(0, Math.min(maxTop, initialTop + dy));
+
+  floatingCta.style.left = left + "px";
+  floatingCta.style.top = top + "px";
+  floatingCta.style.right = "auto";
+  floatingCta.style.bottom = "auto";
+  floatingCta.style.transform = "none";
+});
+
+function finishFloatingDrag(event) {
+  if (activePointerId !== event.pointerId) return;
+
+  suppressNextClick = isDragging;
+  activePointerId = null;
+  isDragging = false;
+}
+
+floatingButton.addEventListener("pointerup", finishFloatingDrag);
+floatingButton.addEventListener("pointercancel", finishFloatingDrag);
+
+floatingButton.addEventListener("click", (event) => {
+  if (suppressNextClick) {
+    event.preventDefault();
+    event.stopPropagation();
+    suppressNextClick = false;
+    return;
+  }
+
   const reviewsSection = $("#reviewsSection");
-  const floatingButton = $("#floatingReviewCta");
 
   if (!reviewsSection) return;
 
-  // ซ่อนปุ่มเพื่อไม่ให้บังเนื้อหารีวิว
-  floatingButton.hidden = true;
+  // ซ่อนปุ่มหลังจากเลือกไปดูรีวิว
+  floatingCta.hidden = true;
 
-  // เลื่อนไปยังส่วนรีวิวอย่างนุ่มนวล
   reviewsSection.scrollIntoView({
     behavior: "smooth",
     block: "start"
   });
 });
 
-$("#floatingReviewClose").addEventListener("click", () => {
-  $("#floatingReviewCta").hidden = true;
+floatingClose.addEventListener("click", () => {
+  floatingCta.hidden = true;
 });
     function initialise() {
       initialiseRatings();
