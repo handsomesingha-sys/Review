@@ -2862,88 +2862,143 @@
           <span class="review-count-badge" id="reviewCountBadge">— รีวิว</span>
         </div>
         
-          <details class="filter-advanced">
-            <summary>
-              <svg class="icon icon-sm"><use href="#i-filter"></use></svg>
-              ตัวกรองเพิ่มเติม
-              <span class="filter-advanced-hint">บริการ คะแนน และวันที่</span>
-            </summary>
-            <div class="filter-advanced-content">
-          <div class="filter-field">
-            <label class="filter-label" for="filterSearch">ค้นหารีวิว</label>
-            <div class="search-wrap">
-              <svg class="icon icon-sm"><use href="#i-search"></use></svg>
-              <input
-                type="search"
-                id="filterSearch"
-                class="filter-control"
-                placeholder="ค้นหาชื่อ บริการ หรือความคิดเห็น..."
-                maxlength="200"
-              >
-            </div>
-          </div>
-
-          <div class="filter-field">
-            <label class="filter-label" for="filterSort">เรียงลำดับ</label>
-            <select class="filter-control" id="filterSort">
-              <option value="newest">ใหม่ที่สุด</option>
-              <option value="oldest">เก่าที่สุด</option>
-            </select>
-          </div>
-
-          <div class="filter-field">
-            <label class="filter-label" for="filterService">บริการ</label>
-            <select class="filter-control" id="filterService">
-              <option value="">ทุกบริการ</option>
-            </select>
-          </div>
-
-          <div class="filter-field">
-            <label class="filter-label" for="filterRating">คะแนนรีวิวโดยรวม</label>
-            <select class="filter-control" id="filterRating">
-              <option value="">ทุกคะแนน</option>
-              <option value="5">5 ดาว</option>
-              <option value="4">4 ดาว</option>
-              <option value="3">3 ดาว</option>
-              <option value="2">2 ดาว</option>
-              <option value="1">1 ดาว</option>
-            </select>
-          </div>
-
-          <div class="filter-field field-full">
-            <label class="filter-label">ค้นหาตามช่วงวันที่</label>
-            <div class="date-filter-grid">
-              <div>
-                <label class="filter-label" for="filterDateFrom">ตั้งแต่วันที่</label>
-                <input type="date" class="filter-control" id="filterDateFrom">
-              </div>
-              <div>
-                <label class="filter-label" for="filterDateTo">ถึงวันที่</label>
-                <input type="date" class="filter-control" id="filterDateTo">
-              </div>
-            </div>
-          </div>
-
-          <div class="filter-actions">
-            <button class="button button-primary" type="button" id="applyFilters">
-              <svg class="icon icon-sm"><use href="#i-filter"></use></svg>
-              ค้นหารีวิว
-            </button>
-            <button class="button button-secondary" type="button" id="clearFilters">
-              <svg class="icon icon-sm"><use href="#i-filter-x"></use></svg>
-              ล้างตัวกรอง
-            </button>
-            <button class="button button-secondary" type="button" id="refreshReviews">
-              <svg class="icon icon-sm"><use href="#i-refresh"></use></svg>
-              โหลดใหม่
-            </button>
-          </div>
-          </div>
-        </details>
         <div class="filter-status" id="filterStatus" role="status">
           กำลังโหลดรีวิว...
         </div>
+        
+<div class="filter-panel">
+  <!-- ช่องค้นหา: แสดงตลอดเวลา -->
+  <div class="filter-field">
+    <label class="filter-label" for="filterSearch">
+      ค้นหารีวิว
+    </label>
+    <div class="search-wrap">
+      <svg class="icon icon-sm">
+        <use href="#i-search"></use>
+      </svg>
+      <input
+        type="search"
+        id="filterSearch"
+        class="filter-control"
+        placeholder="ค้นหาชื่อ บริการ หรือความคิดเห็น..."
+        maxlength="200"
+      >
+    </div>
+  </div>
 
+  <!-- เรียงลำดับ: แสดงตลอดเวลา -->
+  <div class="filter-field">
+    <label class="filter-label" for="filterSort">
+      เรียงลำดับ
+    </label>
+    <select class="filter-control" id="filterSort">
+      <option value="newest">ใหม่ที่สุด</option>
+      <option value="oldest">เก่าที่สุด</option>
+    </select>
+  </div>
+
+  <!-- ตัวกรองขั้นสูง -->
+  <details class="filter-advanced">
+    <summary>
+      <svg class="icon icon-sm">
+        <use href="#i-filter"></use>
+      </svg>
+      ตัวกรองเพิ่มเติม
+      <span class="filter-advanced-hint">
+        บริการ คะแนน และวันที่
+      </span>
+    </summary>
+
+    <div class="filter-advanced-content">
+      <div class="filter-field">
+        <label class="filter-label" for="filterService">
+          บริการ
+        </label>
+        <select class="filter-control" id="filterService">
+          <option value="">ทุกบริการ</option>
+        </select>
+      </div>
+
+      <div class="filter-field">
+        <label class="filter-label" for="filterRating">
+          คะแนนรีวิวโดยรวม
+        </label>
+        <select class="filter-control" id="filterRating">
+          <option value="">ทุกคะแนน</option>
+          <option value="5">5 ดาว</option>
+          <option value="4">4 ดาว</option>
+          <option value="3">3 ดาว</option>
+          <option value="2">2 ดาว</option>
+          <option value="1">1 ดาว</option>
+        </select>
+      </div>
+
+      <div class="filter-field field-full">
+        <label class="filter-label">
+          ค้นหาตามช่วงวันที่
+        </label>
+        <div class="date-filter-grid">
+          <div>
+            <label class="filter-label" for="filterDateFrom">
+              ตั้งแต่วันที่
+            </label>
+            <input
+              type="date"
+              class="filter-control"
+              id="filterDateFrom"
+            >
+          </div>
+
+          <div>
+            <label class="filter-label" for="filterDateTo">
+              ถึงวันที่
+            </label>
+            <input
+              type="date"
+              class="filter-control"
+              id="filterDateTo"
+            >
+          </div>
+        </div>
+      </div>
+
+      <div class="filter-actions">
+        <button
+          class="button button-primary"
+          type="button"
+          id="applyFilters"
+        >
+          <svg class="icon icon-sm">
+            <use href="#i-filter"></use>
+          </svg>
+          ค้นหารีวิว
+        </button>
+
+        <button
+          class="button button-secondary"
+          type="button"
+          id="clearFilters"
+        >
+          <svg class="icon icon-sm">
+            <use href="#i-filter-x"></use>
+          </svg>
+          ล้างตัวกรอง
+        </button>
+
+        <button
+          class="button button-secondary"
+          type="button"
+          id="refreshReviews"
+        >
+          <svg class="icon icon-sm">
+            <use href="#i-refresh"></use>
+          </svg>
+          โหลดใหม่
+        </button>
+      </div>
+    </div>
+  </details>
+</div>
         <div class="review-list" id="reviewList" aria-live="polite">
           <div class="state-panel">
             <div class="small-spinner"></div>
