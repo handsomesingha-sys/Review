@@ -4198,17 +4198,51 @@
     });
 
     $("#previewGrid").addEventListener("click", (event) => {
-      const button = event.target.closest("[data-remove-file]");
+  // ปุ่ม X ใช้ลบรูป
+  const removeButton = event.target.closest("[data-remove-file]");
 
-      if (!button) return;
+  if (removeButton) {
+    const index = Number(removeButton.dataset.removeFile);
 
-      const index = Number(button.dataset.removeFile);
+    if (!Number.isInteger(index)) return;
 
-      if (!Number.isInteger(index)) return;
+    state.selectedFiles.splice(index, 1);
+    renderImagePreviews();
+    return;
+  }
 
-      state.selectedFiles.splice(index, 1);
-      renderImagePreviews();
-    });
+  // แตะรูปตัวอย่างเพื่อดูรูปขนาดเต็ม
+  const previewImage = event.target.closest(".preview-item img");
+
+  if (!previewImage) return;
+
+  const item = previewImage.closest(".preview-item");
+  const items = Array.from(item.parentElement.children);
+  const index = items.indexOf(item);
+  const file = state.selectedFiles[index];
+
+  if (!file) return;
+
+  const reader = new FileReader();
+
+  reader.addEventListener("load", () => {
+    const lightboxImage = $("#lightboxImage");
+
+    lightboxImage.src = String(reader.result);
+    lightboxImage.alt = "ตัวอย่างรูปภาพ " + (index + 1);
+
+    openModal("lightboxModal");
+  }, { once: true });
+
+  reader.addEventListener("error", () => {
+    showToast(
+      "ไม่สามารถแสดงรูปภาพได้",
+      "กรุณาลองเลือกรูปภาพอีกครั้ง"
+    );
+  }, { once: true });
+
+  reader.readAsDataURL(file);
+});
 
     const uploadZone = $("#uploadZone");
 
