@@ -2442,8 +2442,8 @@
 }
 
 .floating-review-cta.is-docked-right {
-  right: 0 !important;
-  left: auto !important;
+  left: calc(100vw - 54px) !important;
+  right: auto !important;
   transform: none !important;
 }
 
@@ -2491,6 +2491,37 @@
   .floating-review-cta.is-docked-left .floating-review-button,
   .floating-review-cta.is-docked-right .floating-review-button {
     transition: none;
+  }
+}
+/* Smooth floating button movement */
+.floating-review-cta {
+  transition:
+    left 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    right 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    top 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    bottom 320ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: left, top;
+}
+
+/* Follow the finger immediately while dragging */
+.floating-review-cta.is-dragging {
+  transition: none !important;
+}
+
+/* Smoothly expand and collapse */
+.floating-review-button {
+  transition:
+    width 300ms cubic-bezier(0.22, 1, 0.36, 1),
+    min-width 300ms cubic-bezier(0.22, 1, 0.36, 1),
+    padding 300ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-radius 300ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 250ms ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .floating-review-cta,
+  .floating-review-button {
+    transition: none !important;
   }
 }
   </style>
@@ -5414,7 +5445,9 @@ floatingButton.addEventListener("pointermove", (event) => {
   const dy = event.clientY - pointerStartY;
 
   if (!isDragging && Math.hypot(dx, dy) > 6) {
-    isDragging = true;
+  isDragging = true;
+  floatingCta.classList.add("is-dragging");
+  }
   }
 
   if (!isDragging) return;
@@ -5436,6 +5469,7 @@ function finishFloatingDrag(event) {
   if (activePointerId !== event.pointerId) return;
 
   const didDrag = isDragging;
+  floatingCta.classList.remove("is-dragging");
 
   if (didDrag) {
     const rect = floatingCta.getBoundingClientRect();
