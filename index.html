@@ -4715,8 +4715,12 @@
 
         renderReviewList(items, data);
 
-        $("#reviewCountBadge").textContent =
-          formatNumber(state.totalReviews) + " รีวิว";
+        const reviewCountBadge = $("#reviewCountBadge");
+
+if (reviewCountBadge) {
+  reviewCountBadge.textContent =
+    formatNumber(state.totalReviews) + " รีวิว";
+}
 
         const filterParts = [];
 
