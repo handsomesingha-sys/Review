@@ -2350,6 +2350,88 @@
     margin-left: auto;
   }
 }
+/* Floating button: jump to public reviews */
+.floating-review-cta {
+  position: fixed;
+  left: 50%;
+  bottom: calc(22px + env(safe-area-inset-bottom, 0px));
+  transform: translateX(-50%);
+  z-index: 900;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: max-content;
+  max-width: calc(100vw - 32px);
+}
+
+.floating-review-cta[hidden] {
+  display: none !important;
+}
+
+.floating-review-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 11px;
+  min-height: 60px;
+  max-width: 100%;
+  padding: 0 30px;
+  border: 0;
+  border-radius: 999px;
+  background: #1764d8;
+  color: #fff;
+  font-family: inherit;
+  font-size: 17px;
+  font-weight: 700;
+  white-space: nowrap;
+  cursor: pointer;
+  box-shadow: 0 8px 26px rgba(23, 100, 216, 0.32);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.floating-review-button:active {
+  transform: scale(0.97);
+}
+
+.floating-review-button .icon {
+  width: 23px;
+  height: 23px;
+}
+
+.floating-review-close {
+  position: absolute;
+  top: -11px;
+  right: -7px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 35px;
+  height: 35px;
+  padding: 0;
+  border: 2px solid #1764d8;
+  border-radius: 50%;
+  background: #fff;
+  color: #243247;
+  font-size: 23px;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 3px 10px rgba(15, 23, 42, 0.18);
+}
+
+@media (max-width: 400px) {
+  .floating-review-button {
+    min-height: 56px;
+    padding: 0 24px;
+    font-size: 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .floating-review-button {
+    transition: none;
+  }
+}
   </style>
 </head>
 
