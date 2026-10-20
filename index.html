@@ -2434,6 +2434,65 @@
     transition: none;
   }
 }
+/* Dynamic Island style: dock to screen edges */
+.floating-review-cta.is-docked-left {
+  left: 0 !important;
+  right: auto !important;
+  transform: none !important;
+}
+
+.floating-review-cta.is-docked-right {
+  right: 0 !important;
+  left: auto !important;
+  transform: none !important;
+}
+
+.floating-review-cta.is-docked-left .floating-review-button,
+.floating-review-cta.is-docked-right .floating-review-button {
+  width: 54px;
+  min-width: 54px;
+  min-height: 64px;
+  padding: 0;
+  gap: 0;
+  overflow: hidden;
+  border-radius: 0;
+  box-shadow: 0 4px 18px rgba(23, 100, 216, 0.35);
+}
+
+.floating-review-cta.is-docked-left .floating-review-button {
+  border-radius: 0 999px 999px 0;
+}
+
+.floating-review-cta.is-docked-right .floating-review-button {
+  border-radius: 999px 0 0 999px;
+}
+
+/* Show only the icon while docked */
+.floating-review-cta.is-docked-left .floating-review-button span,
+.floating-review-cta.is-docked-right .floating-review-button span {
+  display: none;
+}
+
+/* Hide close button while docked */
+.floating-review-cta.is-docked-left .floating-review-close,
+.floating-review-cta.is-docked-right .floating-review-close {
+  display: none;
+}
+
+.floating-review-cta.is-docked-left .floating-review-button,
+.floating-review-cta.is-docked-right .floating-review-button {
+  transition:
+    width 0.22s ease,
+    min-width 0.22s ease,
+    border-radius 0.22s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .floating-review-cta.is-docked-left .floating-review-button,
+  .floating-review-cta.is-docked-right .floating-review-button {
+    transition: none;
+  }
+}
   </style>
 </head>
 
@@ -5301,7 +5360,7 @@ if (reviewCountBadge) {
         block: "start"
       });
     });
-    /* Floating review button: drag + click */
+    /* Floating review button: drag + edge docking */
 const floatingCta = $("#floatingReviewCta");
 const floatingButton = $("#floatingReviewButton");
 const floatingClose = $("#floatingReviewClose");
@@ -5314,8 +5373,25 @@ let isDragging = false;
 let suppressNextClick = false;
 let activePointerId = null;
 
+function isDocked() {
+  return (
+    floatingCta.classList.contains("is-docked-left") ||
+    floatingCta.classList.contains("is-docked-right")
+  );
+}
+
+function clearDocking() {
+  floatingCta.classList.remove(
+    "is-docked-left",
+    "is-docked-right"
+  );
+}
+
 floatingButton.addEventListener("pointerdown", (event) => {
   if (event.button !== undefined && event.button !== 0) return;
+
+  // ถ้ายุบอยู่ ให้แตะเพื่อกางกลับ ไม่เริ่มลากทันที
+  if (isDocked()) return;
 
   const rect = floatingCta.getBoundingClientRect();
 
@@ -5337,7 +5413,6 @@ floatingButton.addEventListener("pointermove", (event) => {
   const dx = event.clientX - pointerStartX;
   const dy = event.clientY - pointerStartY;
 
-  // เริ่มลากเมื่อขยับเกิน 6 พิกเซล
   if (!isDragging && Math.hypot(dx, dy) > 6) {
     isDragging = true;
   }
@@ -5360,7 +5435,34 @@ floatingButton.addEventListener("pointermove", (event) => {
 function finishFloatingDrag(event) {
   if (activePointerId !== event.pointerId) return;
 
-  suppressNextClick = isDragging;
+  const didDrag = isDragging;
+
+  if (didDrag) {
+    const rect = floatingCta.getBoundingClientRect();
+    const edgeDistance = 32;
+
+    // ถ้าปล่อยใกล้ขอบซ้าย ให้ยุบแนบขอบซ้าย
+    if (rect.left <= edgeDistance) {
+      floatingCta.classList.remove("is-docked-right");
+      floatingCta.classList.add("is-docked-left");
+
+      floatingCta.style.left = "0px";
+      floatingCta.style.right = "auto";
+      floatingCta.style.transform = "none";
+    }
+
+    // ถ้าปล่อยใกล้ขอบขวา ให้ยุบแนบขอบขวา
+    else if (window.innerWidth - rect.right <= edgeDistance) {
+      floatingCta.classList.remove("is-docked-left");
+      floatingCta.classList.add("is-docked-right");
+
+      floatingCta.style.right = "0px";
+      floatingCta.style.left = "auto";
+      floatingCta.style.transform = "none";
+    }
+  }
+
+  suppressNextClick = didDrag;
   activePointerId = null;
   isDragging = false;
 }
@@ -5369,6 +5471,7 @@ floatingButton.addEventListener("pointerup", finishFloatingDrag);
 floatingButton.addEventListener("pointercancel", finishFloatingDrag);
 
 floatingButton.addEventListener("click", (event) => {
+  // ป้องกันการคลิกหลังลากจบ
   if (suppressNextClick) {
     event.preventDefault();
     event.stopPropagation();
@@ -5376,11 +5479,38 @@ floatingButton.addEventListener("click", (event) => {
     return;
   }
 
+  // แตะปุ่มที่แนบขอบเพื่อกางกลับ
+  if (isDocked()) {
+    const wasLeft = floatingCta.classList.contains("is-docked-left");
+    const rect = floatingCta.getBoundingClientRect();
+
+    clearDocking();
+
+    floatingCta.style.top =
+      Math.max(
+        8,
+        Math.min(rect.top, window.innerHeight - floatingCta.offsetHeight - 8)
+      ) + "px";
+
+    floatingCta.style.bottom = "auto";
+    floatingCta.style.transform = "none";
+
+    if (wasLeft) {
+      floatingCta.style.left = "12px";
+      floatingCta.style.right = "auto";
+    } else {
+      floatingCta.style.right = "12px";
+      floatingCta.style.left = "auto";
+    }
+
+    return;
+  }
+
+  // แตะปุ่มวงรียาวเพื่อไปดูรีวิว
   const reviewsSection = $("#reviewsSection");
 
   if (!reviewsSection) return;
 
-  // ซ่อนปุ่มหลังจากเลือกไปดูรีวิว
   floatingCta.hidden = true;
 
   reviewsSection.scrollIntoView({
