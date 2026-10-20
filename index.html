@@ -5504,7 +5504,7 @@ floatingButton.addEventListener("pointerup", finishFloatingDrag);
 floatingButton.addEventListener("pointercancel", finishFloatingDrag);
 
 floatingButton.addEventListener("click", (event) => {
-  // ป้องกันการคลิกหลังลากจบ
+  // ป้องกันการคลิกที่เกิดตามหลังการลาก
   if (suppressNextClick) {
     event.preventDefault();
     event.stopPropagation();
@@ -5512,36 +5512,28 @@ floatingButton.addEventListener("click", (event) => {
     return;
   }
 
-  // แตะปุ่มที่แนบขอบเพื่อกางกลับ
+  // แตะปุ่มแนบขอบเพื่อกางกลับทันที
   if (isDocked()) {
+    event.preventDefault();
+    event.stopPropagation();
+
     const wasLeft = floatingCta.classList.contains("is-docked-left");
     const rect = floatingCta.getBoundingClientRect();
 
     clearDocking();
 
+    floatingCta.style.left = wasLeft ? "0px" : "auto";
+    floatingCta.style.right = wasLeft ? "auto" : "0px";
     floatingCta.style.top =
-      Math.max(
-        8,
-        Math.min(rect.top, window.innerHeight - floatingCta.offsetHeight - 8)
-      ) + "px";
-
+      Math.max(8, Math.min(rect.top, window.innerHeight - 76)) + "px";
     floatingCta.style.bottom = "auto";
     floatingCta.style.transform = "none";
-
-    if (wasLeft) {
-      floatingCta.style.left = "12px";
-      floatingCta.style.right = "auto";
-    } else {
-      floatingCta.style.right = "12px";
-      floatingCta.style.left = "auto";
-    }
 
     return;
   }
 
-  // แตะปุ่มวงรียาวเพื่อไปดูรีวิว
+  // แตะปุ่มปกติเพื่อไปดูรีวิว
   const reviewsSection = $("#reviewsSection");
-
   if (!reviewsSection) return;
 
   floatingCta.hidden = true;
@@ -5552,7 +5544,9 @@ floatingButton.addEventListener("click", (event) => {
   });
 });
 
-floatingClose.addEventListener("click", () => {
+floatingClose.addEventListener("click", (event) => {
+  event.preventDefault();
+  event.stopPropagation();
   floatingCta.hidden = true;
 });
     function initialise() {
